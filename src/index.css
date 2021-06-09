@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.leftMenu{
+  color: white;
+  background-color: black;
+  font-size: large;
+  
+}
+.loginButton{
+  color: white;
+  background-color: teal;
+}
