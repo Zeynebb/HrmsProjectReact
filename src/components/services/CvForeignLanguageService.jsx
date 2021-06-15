@@ -6,5 +6,8 @@ export default class CvForeignLanguageService {
         return axios.get("/api/cvForeignLanguage/getAll")
 
     }
+    getCvForeignLanguagesByCvId(cvId) {
+        return axios.get("/api/cvForeignLanguage/getCvForeignLanguageWithForeignLanguageDetails?cvId="+cvId)
+    }
 
 }

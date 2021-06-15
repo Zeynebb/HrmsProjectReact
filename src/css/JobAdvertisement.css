@@ -1,0 +1,25 @@
+.ui.jobAdvertisementTable{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 15px;
+
+}
+
+ .jobAdvertisementTable .leftTd{
+    width:25%;
+    font-weight: bold;
+    font-size: medium;
+    
+}
+
+ .jobAdvertisementTable .rightTd{
+    width:75%;
+    font-size: medium;
+    
+}
+
+.ui.listDiv{
+    font-size: x-large;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: black;
+
+}

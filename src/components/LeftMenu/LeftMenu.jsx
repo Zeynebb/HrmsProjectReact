@@ -1,20 +1,17 @@
 import React from 'react'
+import {  NavLink } from 'react-router-dom'
 import { Menu } from 'semantic-ui-react'
-import '../../index.css'
+import '../../css/LeftMenu.css'
 
 export default function LeftMenu() {
     return (
         <div>
-            <Menu fluid vertical color='orange'>
-                <Menu.Item className="leftMenu" 
-                    name='run'
-                />
-                <Menu.Item className="leftMenu"
-                    name='walk'
-                />
-                <Menu.Item className="leftMenu"
-                    name='bike'
-                />
+            <Menu fluid vertical className="leftMenuOne" >
+                <Menu.Item className='leftMenu' as={NavLink} to="/" style={{ backgroundColor: 'black', color: 'white' }} name="Anasayfa"> Anasayfa </Menu.Item>
+                <Menu.Item className="leftMenu" as={NavLink} to="/jobAdvertisement" >İş İlanları</Menu.Item>
+                <Menu.Item className="leftMenu" as={NavLink} to="/cv/2" >Özgeçmiş</Menu.Item>
+                <Menu.Item className="leftMenu" as={NavLink} to="/jobAdvertisementAdd" >İş İlanı Ekle </Menu.Item>
+                
             </Menu>
         </div>
     )

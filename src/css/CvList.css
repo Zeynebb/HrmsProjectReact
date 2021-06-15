@@ -1,0 +1,31 @@
+.ui.cvTable{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 15px;
+
+}
+
+ .cvTable .leftTd{
+    width:25%;
+    font-weight: bold;
+    font-size: medium;
+    
+}
+
+ .cvTable .rightTd{
+    width:75%;
+    font-size: medium;
+    
+}
+
+.headerThree{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 15px;
+    margin-top: 10px;
+    font-size:"20px";
+    background-color:"black";
+}
+
+#segmentCv{
+    background-color:"black";
+    text-align: left;
+}

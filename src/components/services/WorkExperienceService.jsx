@@ -7,4 +7,9 @@ export default class WorkExperienceService {
 
     }
 
+    getWorkExperiencesByCvId(cvId) {
+        return axios.get("/api/workExperience/getWorkExperienceWithCvWithJobPositionDetails?cvId="+cvId)
+
+    }
+
 }

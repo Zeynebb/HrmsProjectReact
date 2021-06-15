@@ -6,5 +6,9 @@ export default class CvTechnologyService {
         return axios.get("/api/cvTechnology/getAll")
 
     }
+    getCvTechnologiesByCvId(cvId) {
+        return axios.get("/api/cvTechnology/getCvTechnologyWithTechnologydetails?cvId="+cvId)
+
+    }
 
 }

@@ -1,64 +1,74 @@
 import React, { useEffect, useState } from 'react'
 import EducationInformationService from '../../services/EducationInformationService'
-import { Icon, Menu, Table } from 'semantic-ui-react'
+import { Table, Segment, Image } from 'semantic-ui-react'
+import { useParams } from 'react-router'
+import '../../../css/CvList.css'
 
 export default function CvEducationInformationList() {
+
+    let { cvId } = useParams()
 
     const [educationInformations, setEducationInformations] = useState([])
 
     useEffect(() => {
         let educationInformationService = new EducationInformationService()
-        educationInformationService.getEducationInformations().then(result => setEducationInformations(result.data.data))
-    },[])
+        educationInformationService.getEducationInformationsByCvId(cvId).then(result => setEducationInformations(result.data.data))
+    }, [])
 
     return (
         <div>
-            <Table celled >
-                <Table.Header>
-                    <Table.Row>
-                        <Table.HeaderCell>İsim</Table.HeaderCell>
-                        <Table.HeaderCell>Soyisim</Table.HeaderCell>
-                        <Table.HeaderCell>Başlangıç Tarihi</Table.HeaderCell>
-                        <Table.HeaderCell>Bitiş Tarihi</Table.HeaderCell>
-                        <Table.HeaderCell>Üniversite</Table.HeaderCell>
-                        <Table.HeaderCell>Bölüm</Table.HeaderCell>
 
-                    </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                    {
-                        educationInformations.map(educationInformation => (
-                            <Table.Row key={educationInformation.educationInformationId}>
-                                <Table.Cell>{educationInformation.cv.jobSeeker.firstName}</Table.Cell>
-                                <Table.Cell>{educationInformation.cv.jobSeeker.lastName}</Table.Cell>
-                                <Table.Cell>{educationInformation.startingDate}</Table.Cell>
-                                <Table.Cell>{educationInformation.graduationDate}</Table.Cell>
-                                <Table.Cell>{educationInformation.university.universityName}</Table.Cell>
-                                <Table.Cell>{educationInformation.universityDepartment.universityDepartmentName}</Table.Cell>
-                            </Table.Row>
-                        ))
-                    }
-                </Table.Body>
-
-                <Table.Footer>
-                    <Table.Row>
-                        <Table.HeaderCell colSpan='6'>
-                            <Menu floated='right' pagination>
-                                <Menu.Item as='a' icon>
-                                    <Icon name='chevron left' />
-                                </Menu.Item>
-                                <Menu.Item as='a'>1</Menu.Item>
-                                <Menu.Item as='a'>2</Menu.Item>
-                                <Menu.Item as='a'>3</Menu.Item>
-                                <Menu.Item as='a'>4</Menu.Item>
-                                <Menu.Item as='a' icon>
-                                    <Icon name='chevron right' />
-                                </Menu.Item>
-                            </Menu>
-                        </Table.HeaderCell>
-                    </Table.Row>
-                </Table.Footer>
-            </Table>
+            <Segment.Group piled>
+                <Segment inverted color="black" style={{ textAlign: "left" }}><h3 className="headerThree">Eğitim Bilgileri </h3></Segment>
+                {
+                    educationInformations.map(educationInformation => (
+                        <Table className="cvTable">
+                            <td width="5%">
+                                <tr>
+                                </tr>
+                                <tr>
+                                    <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623783434/university_wa4gwv.png' size='mini' style={{marginTop:"5em"}} />
+                                </tr>
+                                
+                            </td>
+                            <td width="95%">
+                                <tr>
+                                    <td className="leftTd" >
+                                        <p>Üniversite Adı:</p>
+                                    </td>
+                                    <td className="rightTd" >
+                                        <p>{educationInformation.universityName}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="leftTd" >
+                                        <p>Bölüm:</p>
+                                    </td>
+                                    <td className="rightTd">
+                                        <p>{educationInformation.universityDepartmentName}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="leftTd" >
+                                        <p>Başlangıç Tarihi:</p>
+                                    </td>
+                                    <td className="rightTd" >
+                                        <p>{educationInformation.startingDate}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="leftTd" >
+                                        <p>Mezuniyet Tarihi:</p>
+                                    </td>
+                                    <td className="rightTd">
+                                        <p>{educationInformation.graduationDate}</p>
+                                    </td>
+                                </tr>
+                            </td>
+                        </Table>
+                    ))
+                }
+            </Segment.Group>
         </div>
     )
 }

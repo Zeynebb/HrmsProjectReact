@@ -6,5 +6,9 @@ export default class CvSocialMediaService {
         return axios.get("/api/cvSocialMedia/getAll")
 
     }
+    getCvSocialMediaByCvId(cvId) {
+        return axios.get("/api/cvSocialMedia/getCvSocialMediaWithSocialMediaDetails?cvId="+cvId)
+
+    }
 
 }

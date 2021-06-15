@@ -6,5 +6,9 @@ export default class EducationInformationService {
         return axios.get("/api/educationInformation/getAll")
 
     }
+    getEducationInformationsByCvId(cvId) {
+        return axios.get("/api/educationInformation/getEducationInformationWithCvWithUniversityWithUniversityDepartmentDetails?cvId="+cvId)
+
+    }
 
 }

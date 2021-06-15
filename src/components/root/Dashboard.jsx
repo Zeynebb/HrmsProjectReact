@@ -10,10 +10,10 @@ export default class Dashboard extends Component {
                 <Grid>
                     <Grid.Row>
                         <Grid.Column width={4}>
-                            <LeftMenu/>
+                            <LeftMenu />
                         </Grid.Column>
                         <Grid.Column width={12}>
-                            <MainLayout/>
+                            <MainLayout />
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
