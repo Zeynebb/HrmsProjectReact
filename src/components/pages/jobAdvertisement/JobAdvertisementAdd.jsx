@@ -8,6 +8,7 @@ import WorkTimeTypeService from '../../services/WorkTimeTypeService';
 import WorkTypeService from '../../services/WorkTypeService';
 import '../../../css/JobAdvertisementAdd.css'
 import * as Yup from "yup";
+import * as moment from 'moment'
 
 export default function JobAdvertisementAdd() {
 
@@ -62,6 +63,7 @@ export default function JobAdvertisementAdd() {
             workTypeId: "",
             workTimeTypeId: "",
             userId: 20,
+            releaseDate: moment().format("YYYY-MM-DD")
         },
         validationSchema: Yup.object({
             positionId: Yup.number().required("İş pozisyonu bilgisi seçiniz!"),
@@ -84,7 +86,8 @@ export default function JobAdvertisementAdd() {
                 positionAmount: values.positionAmount,
                 jobDescription: values.jobDescription,
                 workType: { workTypeId: values.workTypeId },
-                workTimeType: { workTimeTypeId: values.workTimeTypeId }
+                workTimeType: { workTimeTypeId: values.workTimeTypeId },
+                releaseDate: values.releaseDate
             };
             console.log(jobAdvertisement);
             jobAdvertisementService.addJobAdvertisement(jobAdvertisement).then((result) => console.log(result.data.message));

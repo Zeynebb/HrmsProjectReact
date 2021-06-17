@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import { Segment, Table } from 'semantic-ui-react'
+import { Segment, Table,Button } from 'semantic-ui-react'
 import JobAdvertisementService from '../../services/JobAdvertisementService'
 import '../../../css/JobAdvertisement.css'
-import * as moment from 'moment'
+import { toast } from 'react-toastify'
 
-export default function JobAdvertisementDetails() {
+export default function JobAdvertisementDetailForEmployer() {
 
     let { jobAdvertisementId } = useParams()
 
     const [jobAdvertisement, setJobAdvertisement] = useState({})
+    let jobAdvertisementService = new JobAdvertisementService()
 
     useEffect(() => {
-        let jobAdvertisementService = new JobAdvertisementService()
         jobAdvertisementService.getJobAdvertisementByJobAdvertisementId(jobAdvertisementId).then(result => setJobAdvertisement(result.data.data))
     }, [])
+
+    function setStatus(employerId, jobAdvertisementId , status) {
+        jobAdvertisementService.closeTheJobAdvertisement(employerId, jobAdvertisementId , status).then(result => console.log(result.data.message))
+        toast.success(`İşlem Başarılı.`)
+    }
 
 
     return (
         <div>
             <Segment.Group>
-                <Segment  style={{backgroundColor:"black"}}><h3 style={{backgroundColor:"black", color:"white", marginLeft: "1em" ,fontFamily:"Arial, Helvetica, sans-serif"}} >İş İlanı - {jobAdvertisement.position?.positionName}</h3></Segment>
+                <Segment style={{ backgroundColor: "black" }}><h3 style={{ backgroundColor: "black", color: "white", marginLeft: "1em", fontFamily: "Arial, Helvetica, sans-serif" }} >İş İlanı - {jobAdvertisement.position?.positionName}</h3></Segment>
                 <Table className="jobAdvertisementTable">
                     <tr>
                         <td className="leftTd" >
@@ -116,9 +121,29 @@ export default function JobAdvertisementDetails() {
                         </td>
 
                     </tr>
-                </Table>
-            </Segment.Group>
+                    <tr>
+                        <td className="leftTd" >
+                            <p>İlan Durumu:</p>
+                        </td>
+                        <td className="rightTd" >
+                            <p>{jobAdvertisement.advertisementStatus}</p>
+                        </td>
 
+                    </tr>
+                    <tr>
+                        <td  >
+
+                        </td>
+                        <td>
+                            <Button onClick={() =>setStatus(7,jobAdvertisementId,true)} style={{ backgroundColor: "#780000", color: "white", marginBottom: "0.001em" }}>İlanı Aktif Et</Button>
+                            <Button onClick={() =>setStatus(7,jobAdvertisementId,false)} style={{ backgroundColor: "#505050", color: "white", marginBottom: "0.001em", marginLeft:"2em" }}>İlanı Kapat</Button>
+                        </td>
+
+                    </tr>
+
+                </Table>
+
+            </Segment.Group>
         </div>
-    )
+    )//button kısımlarına employerId ve jobAdvertisementId
 }
