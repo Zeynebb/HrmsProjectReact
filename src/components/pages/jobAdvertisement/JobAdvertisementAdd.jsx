@@ -63,7 +63,7 @@ export default function JobAdvertisementAdd() {
             workTypeId: "",
             workTimeTypeId: "",
             userId: 20,
-            releaseDate: moment().format("YYYY-MM-DD")
+            releaseDate: moment().format("YYYY-MM-DD")//veritabanında default değer-> CURRENT_TIMESTAMP
         },
         validationSchema: Yup.object({
             positionId: Yup.number().required("İş pozisyonu bilgisi seçiniz!"),
@@ -76,7 +76,7 @@ export default function JobAdvertisementAdd() {
         }),
         onSubmit: (values) => {
             console.log(values);
-            let jobAdvertisement = {//sol taraftakiler jobAdvertisement eklerken gelen değişkenler, sağ taraftakiler ise initialValues kısmında belirlediklerimiz
+            let jobAdvertisement = {//sol taraftakiler swagger'da jobAdvertisement eklerken gelen değişkenler, sağ taraftakiler ise initialValues kısmında belirlediklerimiz
                 applicationDeadline: values.applicationDeadline,
                 city: { cityId: values.cityId },
                 employer: { userId: values.userId },

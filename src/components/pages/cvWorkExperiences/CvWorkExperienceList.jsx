@@ -27,7 +27,7 @@ export default function CvWorkExperienceList() {
                                 <tr>
                                 </tr>
                                 <tr>
-                                    <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623788957/work_vaf7yi.png' size='mini' style={{marginTop:"5em"}} />
+                                    <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623788957/work_vaf7yi.png' size='mini' style={{ marginTop: "5em" }} />
                                 </tr>
                             </td>
                             <td width="95%">

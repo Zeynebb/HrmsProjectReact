@@ -8,10 +8,10 @@ export default function SystemPersonnelMenu() {
         <div>
             <Menu fluid vertical className="leftMenuOne" >
                 <Menu.Item className='leftMenu' as={NavLink} to="/jobAdvertisement" style={{ backgroundColor: 'black', color: 'white' }} name="Anasayfa"> Anasayfa </Menu.Item>
-                <Menu.Item className="leftMenu" as={NavLink} to="/jobAdvertisement" >İş İlanları</Menu.Item>
-                <Menu.Item className="leftMenu" as={NavLink} to="/employerApproval" >İş Veren Onayı</Menu.Item>
-                <Menu.Item className="leftMenu" as={NavLink} to="/jobAdvertisementApproval" >İş İlanı Onayı</Menu.Item>   
-                
+                <Menu.Item className="leftMenu" as={NavLink} to="/approvedJobAdvertisement" >Onaylanmış İş İlanları</Menu.Item>
+                <Menu.Item className="leftMenu" as={NavLink} to="/unApprovedJobAdvertisement" >Onaylanmamış İş İlanları</Menu.Item>
+                <Menu.Item className="leftMenu" as={NavLink} to="/approvedEmployerList" >Onaylanmış İş Veren Listesi</Menu.Item>
+                <Menu.Item className="leftMenu" as={NavLink} to="/unApprovedEmployerList" >Onaylanmamış İş Veren Listesi</Menu.Item>
             </Menu>
         </div>
     )

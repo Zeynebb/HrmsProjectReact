@@ -10,6 +10,9 @@ export default function EmployerMenu() {
                 <Menu.Item className='leftMenu' as={NavLink} to="/jobAdvertisement" style={{ backgroundColor: 'black', color: 'white' }} name="Anasayfa"> Anasayfa </Menu.Item>
                 <Menu.Item className="leftMenu" as={NavLink} to="/jobAdvertisement" >İş İlanları</Menu.Item>
                 <Menu.Item className="leftMenu" as={NavLink} to="/jobAdvertisementAdd" >İş İlanı Ekle </Menu.Item>
+                <Menu.Item className="leftMenu" as={NavLink} to="/jobAdvertisementForEmployer/20" >Firmaya Ait Tüm İş İlanları </Menu.Item>
+                <Menu.Item className="leftMenu" as={NavLink} to="/activeJobAdvertisement/20" >Firmaya Ait Aktif İş İlanları </Menu.Item>
+                <Menu.Item className="leftMenu" as={NavLink} to="/passiveJobAdvertisement/20" >Firmaya Ait Pasif İş İlanları </Menu.Item>
                 
             </Menu>
             

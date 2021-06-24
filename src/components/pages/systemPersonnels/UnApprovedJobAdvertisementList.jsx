@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
-import { Image, Segment, Button, Table } from 'semantic-ui-react'
-import { useParams } from 'react-router'
+import { Button } from 'rebass';
+import { Segment,Image } from 'semantic-ui-react';
 import JobAdvertisementService from '../../services/JobAdvertisementService';
 
-export default function JobAdvertisementListForEmployer() {
-
-    const { employerId } = useParams()
+export default function UnapprovedJobAdvertisementList() {
 
     const [jobAdvertisements, setJobAdvertisements] = useState([]);
 
     useEffect(() => {
         let jobAdvertisementService = new JobAdvertisementService()
-        jobAdvertisementService.getJobAdvertisementForEmployerId(employerId).then(result => setJobAdvertisements(result.data.data))
+        jobAdvertisementService.getApprovedOrUnapprovedJobAdvertisement(false).then(result => setJobAdvertisements(result.data.data))
     }, [])
-
 
     return (
         <div>
@@ -34,7 +31,7 @@ export default function JobAdvertisementListForEmployer() {
                                         <h2 style={{ marginLeft: "0.5em" }}>{jobAdvertisement.position.positionName}</h2>
                                         <p style={{ marginLeft: "1em", marginTop: "1em" }}> {jobAdvertisement.jobDescription}</p>
                                         <p style={{ marginLeft: "1em", marginTop: "1em", marginBottom: "1em" }}>{jobAdvertisement.employer.companyName}</p>
-                                        <Button as={NavLink} to={`/jobAdvertisementDetailForEmployer/${jobAdvertisement.jobAdvertisementId}`} style={{ backgroundColor: "black", color: "white", marginLeft: "1em" }} >İncele </Button>
+                                        <Button as={NavLink} to={`/jobAdvertisementDetailForPersonnel/${jobAdvertisement.jobAdvertisementId}`} style={{ backgroundColor: "black", color: "white", marginLeft: "1em" }} >İncele </Button>
                                     </div>
                                 </Segment>
                             </Segment.Group> </Segment>
@@ -42,6 +39,7 @@ export default function JobAdvertisementListForEmployer() {
                 ))
                 }
             </div>
-        </div>
+            
+        </div >
     )
 }

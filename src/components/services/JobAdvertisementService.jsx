@@ -6,6 +6,14 @@ export default class JobAdvertisementService {
         return axios.get("/api/jobAdvertisement/getAll")
 
     }
+    getJobAdvertisementsSorted() {
+        return axios.get("/api/jobAdvertisement/getAll")
+
+    }
+    getActiveOrPassiveJobAdvertisementsSorted(status) {
+        return axios.get("/api/jobAdvertisement/getAllSortedJobAdvertisementByStatus?status="+status)
+
+    }
     getJobAdvertisementByJobAdvertisementId(jobAdvertisementId) {
         return axios.get("/api/jobAdvertisement/getByJobAdvertisementId?id="+jobAdvertisementId)
     }
@@ -19,5 +27,15 @@ export default class JobAdvertisementService {
     getJobAdvertisementForEmployerId(employerId){
         return axios.get("/api/jobAdvertisement/getByEmployerJobAdvertisements?userId="+employerId)
     }
+    getActiveOrPassiveJobAdvertisementsSortedForEmployer(status, employerId) {
+        return axios.get("/api/jobAdvertisement/getAllSortedJobAdvertisementByStatusForEmployerId?employerId="+employerId+"&status="+status)
+    }
+    getApprovedOrUnapprovedJobAdvertisement(status){
+        return axios.get("/api/jobAdvertisement/getAllApproveStatus?status="+status)
+    }
 
+    changeApprovalStatusForJobAdvertisementId(jobAdvertisementID, status){
+        return axios.post("/api/jobAdvertisement/updateJobAdvertisementSetApprovalStatus?jobAdvertisementId="+jobAdvertisementID+"&status="+status)
+    }
+    
 }

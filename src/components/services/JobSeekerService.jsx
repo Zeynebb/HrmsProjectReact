@@ -8,6 +8,6 @@ export default class JobSeekerService{
     }
     register(jobSeeker, passwordAgain, validationCode){
         return axios.post("/api/jobSeekers/register?passwordAgain="+passwordAgain+"&validationCode="+validationCode, jobSeeker)
-    }///api/jobSeekers/register?passwordAgain=456&validationCode=459874
+    }
 
 }

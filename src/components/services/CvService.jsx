@@ -10,4 +10,8 @@ export default class CvService {
         return axios.get("/api/cv/getCvWithJobSeekerDetails?cvId="+cvId)
     }
 
+    getCvsByJobSeekerId(jobSeekerId){
+        return axios.get("/api/cv/getByCvIdForJobSeeker_UserId?userId="+jobSeekerId)
+    }
+
 }

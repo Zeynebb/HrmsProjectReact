@@ -6,5 +6,8 @@ export default class PhotoService {
         return axios.get("/api/photo/getAll")
 
     }
+    getPhotoForCvId(cvId){
+        return axios.get("/api/photo/getByPhotoForCvId?cvId="+cvId)
+    }
 
 }

@@ -77,14 +77,14 @@ export default function EmployerRegister() {
                             </div>
                             <div style={{ marginTop: "1em", marginBottom: "1em" }}>
                                 <label>Şifre:</label>
-                                <Input id="password" fluid style={{ marginRight: "1em", marginTop: "1em" }} placeholder='Şifre...' values={formik.values.password} onChange={formik.handleChange} required></Input>
+                                <Input id="password" type="password" fluid style={{ marginRight: "1em", marginTop: "1em" }} placeholder='Şifre...' values={formik.values.password} onChange={formik.handleChange} required></Input>
                                 {formik.errors.password && formik.touched.password && (
                                     <p style={{ color: "red" }}>{formik.errors.password}</p>
                                 )}
                             </div>
                             <div style={{ marginTop: "1em", marginBottom: "1em" }}>
                                 <label>Şifre Tekrarı:</label>
-                                <Input id="passwordAgain" fluid style={{ marginRight: "1em", marginTop: "1em" }} placeholder='Şifre Tekrarı...' values={formik.values.passwordAgain} onChange={formik.handleChange} required></Input>
+                                <Input id="passwordAgain" type="password" fluid style={{ marginRight: "1em", marginTop: "1em" }} placeholder='Şifre Tekrarı...' values={formik.values.passwordAgain} onChange={formik.handleChange} required></Input>
                                 {formik.errors.passwordAgain && formik.touched.passwordAgain && (
                                     <p style={{ color: "red" }}>{formik.errors.passwordAgain}</p>
                                 )}

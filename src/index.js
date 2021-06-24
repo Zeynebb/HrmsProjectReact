@@ -4,12 +4,20 @@ import './index.css';
 import App from './components/root/App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter} from 'react-router-dom';
+import "react-toastify/dist/ReactToastify.min.css"
+import { Provider } from 'react-redux';
+import { configureStore } from './store/configureStore'
+
+const store = configureStore()
 
 ReactDOM.render(
+  <Provider store={store}>
   <React.StrictMode>
     <BrowserRouter>
-    <App /></BrowserRouter>
+    <App />
+    </BrowserRouter>
   </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 

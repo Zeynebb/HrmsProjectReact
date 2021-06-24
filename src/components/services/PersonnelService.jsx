@@ -7,4 +7,8 @@ export default class PersonnelService {
 
     }
 
+    employerVerification(employerId, status){
+        return axios.post("/api/personnel/employerVerification?employerId="+employerId+"&status="+status)
+    }
+
 }

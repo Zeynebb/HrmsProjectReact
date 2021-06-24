@@ -8,10 +8,13 @@ import CvTechnologyList from '../cvTechnologies/CvTechnologyList';
 import CvSocialMediaList from '../cvSocialMedia/CvSocialMediaList';
 import CvForeignLanguageList from '../cvForeignLanguages/CvForeignLanguageList';
 import { useParams } from 'react-router';
+import CvPhotos from '../cvPhotos/CvPhotos';
+import moment from 'moment';
 
 export default function CvList() {
 
     let { cvId } = useParams()
+    
 
     const [cvs, setCvs] = useState([]);
 
@@ -31,7 +34,7 @@ export default function CvList() {
                                 <tr>
                                 </tr>
                                 <tr>
-                                    <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623358602/user_z5bivv.png' size='small' />
+                                    <CvPhotos/>
                                 </tr>
                             </td>
                             <td width="90%">
@@ -65,6 +68,14 @@ export default function CvList() {
                                     </td>
                                     <td className="rightTd">
                                         <p>{cv.objective}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="leftTd" >
+                                        <p>Oluşturulma Tarihi:</p>
+                                    </td>
+                                    <td className="rightTd">
+                                        <p>{moment(cv.creationDate).format("DD.MM.yyyy")}</p>
                                     </td>
                                 </tr>
                             </td>

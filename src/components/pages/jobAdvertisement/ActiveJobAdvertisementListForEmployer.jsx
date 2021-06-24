@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
-import { Image, Segment, Button, Table } from 'semantic-ui-react'
+import { Image, Segment, Button } from 'semantic-ui-react'
 import { useParams } from 'react-router'
 import JobAdvertisementService from '../../services/JobAdvertisementService';
 
-export default function JobAdvertisementListForEmployer() {
+export default function ActiveJobAdvertisementListForEmployer() {
 
     const { employerId } = useParams()
-
+    let status =true;
     const [jobAdvertisements, setJobAdvertisements] = useState([]);
 
     useEffect(() => {
         let jobAdvertisementService = new JobAdvertisementService()
-        jobAdvertisementService.getJobAdvertisementForEmployerId(employerId).then(result => setJobAdvertisements(result.data.data))
+        jobAdvertisementService.getActiveOrPassiveJobAdvertisementsSortedForEmployer(status, employerId).then(result => setJobAdvertisements(result.data.data))
     }, [])
-
 
     return (
         <div>
@@ -42,6 +41,7 @@ export default function JobAdvertisementListForEmployer() {
                 ))
                 }
             </div>
+
         </div>
     )
 }

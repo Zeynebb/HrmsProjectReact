@@ -17,19 +17,19 @@ export default function CvEducationInformationList() {
 
     return (
         <div>
-
-            <Segment.Group piled>
+            { <Segment.Group piled>
                 <Segment inverted color="black" style={{ textAlign: "left" }}><h3 className="headerThree">Eğitim Bilgileri </h3></Segment>
                 {
                     educationInformations.map(educationInformation => (
+
                         <Table className="cvTable">
                             <td width="5%">
                                 <tr>
                                 </tr>
                                 <tr>
-                                    <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623783434/university_wa4gwv.png' size='mini' style={{marginTop:"5em"}} />
+                                    <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623783434/university_wa4gwv.png' size='mini' style={{ marginTop: "5em" }} />
                                 </tr>
-                                
+
                             </td>
                             <td width="95%">
                                 <tr>
@@ -66,9 +66,11 @@ export default function CvEducationInformationList() {
                                 </tr>
                             </td>
                         </Table>
+
                     ))
                 }
             </Segment.Group>
+            }
         </div>
     )
 }
