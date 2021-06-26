@@ -10,9 +10,6 @@ import Moment from 'moment';
 export default function Cvs() {
 
     let { jobSeekerId } = useParams()
-    let { cvId } = useParams()
-    let count = 0;
-
     let [cvs, setCvs] = useState([])
 
     useEffect(() => {
@@ -67,7 +64,7 @@ export default function Cvs() {
                                         <p>{Moment(cv.creationDate).format("DD.MM.yyyy")}</p>
                                     </td>
                                 </tr>
-                                <Button as={NavLink} to={`/cv/${cv.cvId}`} style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }} >Detay Görüntüle </Button>
+                                <Button as={NavLink} to={`/cvs/${jobSeekerId}/cv/${cv.cvId}`} style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }} >Detay Görüntüle </Button>
                             </td>
                         </Table>
                     </Segment.Group>

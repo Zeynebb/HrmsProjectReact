@@ -1,20 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import CvService from '../../services/CvService'
-import { Table, Image, Segment } from 'semantic-ui-react'
 import '../../../css/CvList.css'
 import CvEducationInformationList from '../cvEducationInformation/CvEducationInformationList';
 import CvWorkExperienceList from '../cvWorkExperiences/CvWorkExperienceList';
 import CvTechnologyList from '../cvTechnologies/CvTechnologyList';
 import CvSocialMediaList from '../cvSocialMedia/CvSocialMediaList';
 import CvForeignLanguageList from '../cvForeignLanguages/CvForeignLanguageList';
+import JobSeekerDetail from '../jobSeekers/JobSeekerDetail';
+import CvEducationInformationListUpdate from '../cvEducationInformation/CvEducationInformationListUpdate';
+import { useSelector } from 'react-redux';
+import CvObjectiveUpdate from '../cvObjective/CvObjectiveUpdate';
+import CvObjective from '../cvObjective/CvObjective';
+import CvWorkExperienceUpdate from '../cvWorkExperiences/CvWorkExperienceUpdate';
+import CvTechnologyUpdate from '../cvTechnologies/CvTechnologyUpdate';
+import CvForeignLanguageUpdate from '../cvForeignLanguages/CvForeignLanguageUpdate';
+import CvSocialMediaUpdate from '../cvSocialMedia/CvSocialMediaUpdate';
 import { useParams } from 'react-router';
-import CvPhotos from '../cvPhotos/CvPhotos';
-import moment from 'moment';
 
 export default function CvList() {
 
     let { cvId } = useParams()
-    
+    let { jobSeekerId } = useParams()
+
+    const educationInformations = useSelector(state => state.educationInformation.educationId)
+    const cvIds = useSelector(state => state.cv.cvId)
+    const workExperienceId = useSelector(state => state.workExperience.workExperienceId)
+    const cvTechnologyId = useSelector(state => state.cvTechnology.cvTechnologyId)
+    const cvForeignLanguageId = useSelector(state => state.cvForeignLanguage.cvForeignLanguageId)
+    const cvSocialMediaId = useSelector(state => state.cvSocialMedia.cvSocialMediaId)
 
     const [cvs, setCvs] = useState([]);
 
@@ -25,77 +38,31 @@ export default function CvList() {
 
     return (
         <div>
-            <Segment.Group piled>
-                <Segment inverted style={{ textAlign: "left" }}><h3 className="headerThree" >İletişim Bilgileri </h3></Segment>
-                {
-                    cvs.map(cv => (
-                        <Table className="cvTable">
-                            <td width="10%">
-                                <tr>
-                                </tr>
-                                <tr>
-                                    <CvPhotos/>
-                                </tr>
-                            </td>
-                            <td width="90%">
-                                <tr>
-                                    <td className="leftTd" >
-                                        <p>Ad Soyad:</p>
-                                    </td>
-                                    <td className="rightTd" >
-                                        <p>{cv.firstName} {cv.lastName}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="leftTd" >
-                                        <p>Email:</p>
-                                    </td>
-                                    <td className="rightTd">
-                                        <p>{cv.email}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="leftTd" >
-                                        <p>Doğum Tarihi:</p>
-                                    </td>
-                                    <td className="rightTd" >
-                                        <p> {cv.birthYear}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="leftTd" >
-                                        <p>Önsöz:</p>
-                                    </td>
-                                    <td className="rightTd">
-                                        <p>{cv.objective}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td className="leftTd" >
-                                        <p>Oluşturulma Tarihi:</p>
-                                    </td>
-                                    <td className="rightTd">
-                                        <p>{moment(cv.creationDate).format("DD.MM.yyyy")}</p>
-                                    </td>
-                                </tr>
-                            </td>
-                        </Table>
-                    ))
-                }
-            </Segment.Group>
-            <CvEducationInformationList />
+            <JobSeekerDetail />
             <br />
             <br />
-            <CvWorkExperienceList />
+            {(cvIds) > 0 ? <CvObjectiveUpdate />
+                : <CvObjective />}
             <br />
             <br />
-            <CvTechnologyList />
+            {(educationInformations) > 0 ? <CvEducationInformationListUpdate />
+                : <CvEducationInformationList />}
             <br />
             <br />
-            <CvForeignLanguageList />
+            {(workExperienceId) > 0 ? <CvWorkExperienceUpdate />
+                : <CvWorkExperienceList />}
             <br />
             <br />
-            <CvSocialMediaList />
+            {(cvTechnologyId) > 0 ? <CvTechnologyUpdate />
+                : <CvTechnologyList />}
+            <br />
+            <br />
+            {(cvForeignLanguageId) > 0 ? <CvForeignLanguageUpdate />
+                : <CvForeignLanguageList />}
+            <br />
+            <br />
+            {(cvSocialMediaId) > 0 ? <CvSocialMediaUpdate />
+                : <CvSocialMediaList />}
             <br />
             <br />
         </div>

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import WorkExperienceService from '../../services/WorkExperienceService'
-import { Table, Segment, Image } from 'semantic-ui-react'
+import { Table, Segment, Image, Button } from 'semantic-ui-react'
 import { useParams } from 'react-router';
 import '../../../css/CvList.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { getWorkExperience } from '../../../store/actions/WorkExperienceActions';
+import moment from 'moment';
 
 export default function CvWorkExperienceList() {
+    const dispatch = useDispatch()
 
     let { cvId } = useParams()
 
@@ -15,6 +19,9 @@ export default function CvWorkExperienceList() {
         workExperienceService.getWorkExperiencesByCvId(cvId).then(result => setWorkExperiences(result.data.data))
     }, [])
 
+    const handleGetWorkExperience = (workExperience) => {
+        dispatch(getWorkExperience(workExperience));
+    }
 
     return (
         <div>
@@ -36,7 +43,7 @@ export default function CvWorkExperienceList() {
                                         <p>Pozisyon Adı:</p>
                                     </td>
                                     <td className="rightTd" >
-                                        <p>{workExperience.workplaceName}</p>
+                                        <p>{workExperience.positionName}</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -44,7 +51,7 @@ export default function CvWorkExperienceList() {
                                         <p>İş Yeri:</p>
                                     </td>
                                     <td className="rightTd">
-                                        <p>{workExperience.startingDate}</p>
+                                        <p>{workExperience.workplaceName}</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -52,7 +59,7 @@ export default function CvWorkExperienceList() {
                                         <p>Başlangıç Tarihi:</p>
                                     </td>
                                     <td className="rightTd" >
-                                        <p>{workExperience.endingdate}</p>
+                                        <p>{moment(workExperience.startingDate).format("DD.MM.yyyy")}</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -60,7 +67,20 @@ export default function CvWorkExperienceList() {
                                         <p>Bitiş Tarihi:</p>
                                     </td>
                                     <td className="rightTd">
-                                        <p>{workExperience.positionName}</p>
+                                        {workExperience.endingdate == null &&
+                                            <p>Devam Ediyor</p>
+                                        }
+                                        {workExperience.endingdate != null &&
+                                            <p>{moment(workExperience.endingdate).format("DD.MM.yyyy")}</p>
+                                        }
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="leftTd" >
+                                    </td>
+                                    <td className="rightTd">
+                                        <Button onClick={() => handleGetWorkExperience(workExperience)}
+                                            style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>Güncelle</Button>
                                     </td>
                                 </tr>
                             </td>

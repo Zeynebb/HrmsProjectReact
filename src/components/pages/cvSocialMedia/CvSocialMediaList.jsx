@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import CvSocialMediaService from '../../services/CvSocialMediaService'
-import { Table, Segment, Image } from 'semantic-ui-react'
+import { Table, Segment, Image, Button } from 'semantic-ui-react'
 import { useParams } from 'react-router';
 import '../../../css/CvList.css'
+import getCvSocialMedia from '../../../store/actions/CvSocialMediaActions';
+import { useDispatch } from 'react-redux';
 
 export default function CvSocialMediaList() {
+
+    const dispatch = useDispatch()
     let { cvId } = useParams()
 
     const [cvSocialMedia, setCvSocialMedia] = useState([]);
@@ -14,6 +18,9 @@ export default function CvSocialMediaList() {
         cvSocialMediaService.getCvSocialMediaByCvId(cvId).then(result => setCvSocialMedia(result.data.data))
     }, [])
 
+    const handleGetSocialMedia = (cvSocialMedia) => {
+        dispatch(getCvSocialMedia(cvSocialMedia));
+    }
 
     return (
         <div>
@@ -57,6 +64,14 @@ export default function CvSocialMediaList() {
                                     </td>
                                     <td className="rightTd" >
                                         <p>{cvSocialMedia.link}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="leftTd" >
+                                    </td>
+                                    <td className="rightTd">
+                                        <Button onClick={() => handleGetSocialMedia(cvSocialMedia)}
+                                            style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>Güncelle</Button>
                                     </td>
                                 </tr>
                             </td>

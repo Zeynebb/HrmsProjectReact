@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button } from 'rebass';
-import { Segment, Table } from 'semantic-ui-react'
+import { Segment, Table, Button } from 'semantic-ui-react'
 import EmployerService from '../../services/EmployerService';
 import PersonnelService from '../../services/PersonnelService';
 

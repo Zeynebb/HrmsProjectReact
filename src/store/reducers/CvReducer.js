@@ -1,19 +1,14 @@
-import { GET_CV_ID } from "../actions/CvActions";
-import { cvId } from "../initialValues/Cv";
+import { GET_CV } from "../actions/CvActions";
+import { cvs } from "../initialValues/Cv";
 
 const initialState = {
-    cvId : cvId
+    cvs: cvs
 }
 
-
-export default function CvReducer(state = initialState, {type , payload}) {
+export default function CvReducer(state = initialState, { type, payload }) {
     switch (type) {
-        case GET_CV_ID:
-            //let cvId = state.cvId.find(c => c.cvId === payload.cvId)
-            return{
-                ...state
-            }
-    
+        case GET_CV:
+            return payload
         default:
             return state;
     }

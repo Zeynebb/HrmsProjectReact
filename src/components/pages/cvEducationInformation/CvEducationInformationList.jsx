@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import EducationInformationService from '../../services/EducationInformationService'
-import { Table, Segment, Image } from 'semantic-ui-react'
+import { Table, Segment, Image, Button } from 'semantic-ui-react'
 import { useParams } from 'react-router'
 import '../../../css/CvList.css'
+import moment from 'moment'
+import { useDispatch } from 'react-redux'
+import { getEducationInformation } from '../../../store/actions/EducationInformationActions'
 
-export default function CvEducationInformationList() {
+export default function CvEducationInformationList({ updated }) {
 
+    const dispatch = useDispatch()
     let { cvId } = useParams()
+    let { jobSeekerId } = useParams()
+    const [open, setOpen] = React.useState(false)
 
     const [educationInformations, setEducationInformations] = useState([])
 
@@ -15,13 +21,15 @@ export default function CvEducationInformationList() {
         educationInformationService.getEducationInformationsByCvId(cvId).then(result => setEducationInformations(result.data.data))
     }, [])
 
+    const handleGetEducationId = (education) => {//düzenleme sayfasına giderken bilgileri göndermek için
+        dispatch(getEducationInformation(education));
+    }
     return (
         <div>
-            { <Segment.Group piled>
+            {<Segment.Group piled>
                 <Segment inverted color="black" style={{ textAlign: "left" }}><h3 className="headerThree">Eğitim Bilgileri </h3></Segment>
                 {
                     educationInformations.map(educationInformation => (
-
                         <Table className="cvTable">
                             <td width="5%">
                                 <tr>
@@ -53,7 +61,7 @@ export default function CvEducationInformationList() {
                                         <p>Başlangıç Tarihi:</p>
                                     </td>
                                     <td className="rightTd" >
-                                        <p>{educationInformation.startingDate}</p>
+                                        <p>{moment(educationInformation.startingDate).format("DD.MM.yyyy")}</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -64,13 +72,21 @@ export default function CvEducationInformationList() {
                                         <p>{educationInformation.graduationDate}</p>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td className="leftTd" >
+                                    </td>
+                                    <td className="rightTd">
+                                        <Button onClick={() => handleGetEducationId(educationInformation)}
+                                            style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>Güncelle</Button>
+                                    </td>
+                                </tr>
                             </td>
                         </Table>
-
                     ))
                 }
             </Segment.Group>
             }
         </div>
+
     )
 }

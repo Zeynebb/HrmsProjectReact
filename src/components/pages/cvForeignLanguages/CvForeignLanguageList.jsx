@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import CvForeignLanguageService from '../../services/CvForeignLanguageService'
-import { Table, Segment, Image } from 'semantic-ui-react'
+import { Table, Segment, Image, Button } from 'semantic-ui-react'
 import { useParams } from 'react-router';
 import '../../../css/CvList.css'
+import { useDispatch } from 'react-redux';
+import getCvForeignLanguage from '../../../store/actions/CvForeignLanguageActions';
 
 export default function CvForeignLanguageList() {
 
+    const dispatch = useDispatch()
     let { cvId } = useParams()
 
     const [cvForeignLanguages, setCvForeignLanguages] = useState([]);
@@ -15,6 +18,9 @@ export default function CvForeignLanguageList() {
         cvForeignLanguageService.getCvForeignLanguagesByCvId(cvId).then(result => setCvForeignLanguages(result.data.data))
     }, [])
 
+    const handleGetForeignLanguage = (cvForeignLanguage) => {
+        dispatch(getCvForeignLanguage(cvForeignLanguage));
+    }
 
     return (
         <div>
@@ -45,6 +51,14 @@ export default function CvForeignLanguageList() {
                                 </td>
                                 <td className="rightTd" >
                                     <p>{cvForeignLanguage.languageLevelName}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="leftTd" >
+                                </td>
+                                <td className="rightTd">
+                                    <Button onClick={() => handleGetForeignLanguage(cvForeignLanguage)}
+                                        style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>Güncelle</Button>
                                 </td>
                             </tr>
                         </td>

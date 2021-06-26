@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TextInout = ({ name, label, onChange, placeHolder, values, error }) => {
+const ZYTextInput = ({ name, label, onChange, placeHolder, values, error }) => {
 
     let warpperClass = "form-greoup"
     if (error && error.length > 0) {
@@ -11,8 +11,8 @@ const TextInout = ({ name, label, onChange, placeHolder, values, error }) => {
         <div className={warpperClass}>
             <label htmlFor={name}></label>
             <div className="field">
-                <input type="text" name={name} className="form-control" placeholder={placeholder}
-                    value={value} onChange={onChange} />
+                <input type="text" name={name} className="form-control" placeholder={placeHolder}
+                    value={values} onChange={onChange} />
 
                     {error&&<div className="alert alert-danger">{error}</div>}
             </div>
@@ -22,4 +22,4 @@ const TextInout = ({ name, label, onChange, placeHolder, values, error }) => {
 
 };
 
-export default TextInput;
+export default ZYTextInput;

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
-import { Button } from 'rebass';
-import { Segment,Image } from 'semantic-ui-react';
+import { Segment, Image, Button } from 'semantic-ui-react';
 import JobAdvertisementService from '../../services/JobAdvertisementService';
 
 export default function ApprovedJobAdvertisementList() {

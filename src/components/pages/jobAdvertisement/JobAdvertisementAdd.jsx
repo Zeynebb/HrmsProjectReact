@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
-import { Button, Segment, Input, Dropdown } from 'semantic-ui-react'
+import { Button, Segment, Input, Dropdown, Form, TextArea } from 'semantic-ui-react'
 import CityService from '../../services/CityService';
 import JobAdvertisementService from '../../services/JobAdvertisementService';
 import JobPositionService from '../../services/JobPositionService';
@@ -9,6 +9,7 @@ import WorkTypeService from '../../services/WorkTypeService';
 import '../../../css/JobAdvertisementAdd.css'
 import * as Yup from "yup";
 import * as moment from 'moment'
+import { toast } from 'react-toastify';
 
 export default function JobAdvertisementAdd() {
 
@@ -91,6 +92,7 @@ export default function JobAdvertisementAdd() {
             };
             console.log(jobAdvertisement);
             jobAdvertisementService.addJobAdvertisement(jobAdvertisement).then((result) => console.log(result.data.message));
+            toast.success(`İş İlanı Eklendi.`)
         },
     });
 
@@ -99,8 +101,8 @@ export default function JobAdvertisementAdd() {
             <Segment.Group>
                 <Segment inverted><h3 className="headerStyle">İş İlanı Ekle</h3></Segment>
                 <Segment>
-                    <form onSubmit={formik.handleSubmit}>
-                        <div style={{ textAlign: "left", fontFamily: "Arial", fontWeight: "bold" }} >
+                    <Form onSubmit={formik.handleSubmit}>
+                        <div style={{ textAlign: "left", fontFamily: "Arial", fontWeight: "bold", padding: "3px" }} >
                             <div className="divStyle" >
                                 <label>Şehir:</label>
                                 <Dropdown style={{ marginRight: "1em", marginTop: "1em", fontWeight: "lighter" }}
@@ -208,14 +210,14 @@ export default function JobAdvertisementAdd() {
                             </div>
                             <div className="divStyle">
                                 <label>Açıklama:</label>
-                                <Input id="jobDescription" placeholder="Açıklama..." fluid style={{ marginRight: "1em", marginTop: "1em" }} onChange={formik.handleChange} value={formik.values.jobDescription}></Input>
+                                <TextArea id="jobDescription" placeholder="Açıklama..." style={{ marginRight: "1em", marginTop: "1em", minHeight: 100 }} onChange={formik.handleChange} value={formik.values.jobDescription}></TextArea>
                                 {formik.errors.jobDescription && formik.touched.jobDescription && (
                                     <p style={{ color: "red" }}>{formik.errors.jobDescription}</p>
                                 )}
                             </div>
                         </div>
                         <Button type="submit" style={{ backgroundColor: "#780000", color: "white", marginBottom: "0.001em" }} >EKLE</Button>
-                    </form>
+                    </Form>
                 </Segment>
             </Segment.Group>
 

@@ -21,6 +21,9 @@ import UnApprovedJobAdvertisementList from '../pages/systemPersonnels/UnApproved
 import CvPhotos from '../pages/cvPhotos/CvPhotos'
 import JobAdvertisementDetailsForPersonnel from '../pages/jobAdvertisement/JobAdvertisementDetailsForPersonnel'
 import Cvs from '../pages/cv/Cvs'
+import CvListUpdate from '../pages/cv/CvListUpdate'
+import JobSeekerDetail from '../pages/jobSeekers/JobSeekerDetail'
+import CvEducationInformationListUpdate from '../pages/cvEducationInformation/CvEducationInformationListUpdate'
 
 export default function MainLayout() {
     return (
@@ -42,11 +45,12 @@ export default function MainLayout() {
             <Route exact path="/unApprovedEmployerList" component={UnApprovedEmployerList} />
 
             <Route exact path="/jobSeekerRegister" component={JobSeekerRegister} />
+            <Route exact path="/jobSeekerDetails/:userId" component={JobSeekerDetail} />
+
             <Route exact path="/technologyAdd" component={TechnologyAdd} />
-            <Route exact path="/cv/:cvId" component={CvList} />
-            <Route exact path="/cv" component={CvList} />
-            <Route exact path="/cvPhoto/:cvId" component={CvPhotos} />
             
+            <Route exact path="/cvs/:jobSeekerId/cvUpdate/:cvId" component={CvListUpdate} />
+            <Route exact path="/cvs/:jobSeekerId/cv/:cvId" component={CvList} />
             <Route exact path="/cvs/:jobSeekerId" component={Cvs} />
 
             <Route exact path="/login" component={Login} />

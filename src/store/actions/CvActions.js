@@ -1,8 +1,8 @@
-export const GET_CV_ID ="GET_CV_ID"
+export const GET_CV ="GET_CV"
 
-export function getCvId(cvId) {
+export function getCv(cv) {
     return{
-        type: GET_CV_ID,
-        payload: cvId
+        type: GET_CV,
+        payload: cv
     }
 }

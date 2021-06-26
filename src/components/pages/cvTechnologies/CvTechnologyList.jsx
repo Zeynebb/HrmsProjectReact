@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import CvTechnologyService from '../../services/CvTechnologyService'
-import { Table, Segment, Image } from 'semantic-ui-react'
+import { Table, Segment, Image, Button } from 'semantic-ui-react'
 import { useParams } from 'react-router';
 import '../../../css/CvList.css'
+import getCvTechnology from '../../../store/actions/CvTechnologyActions';
+import { useDispatch } from 'react-redux';
 
 export default function CvTechnologyList() {
 
+    const dispatch = useDispatch()
     let { cvId } = useParams()
 
     const [cvTechnologies, setCvTechnologies] = useState([]);
@@ -14,6 +17,10 @@ export default function CvTechnologyList() {
         let cvTechnologyService = new CvTechnologyService()
         cvTechnologyService.getCvTechnologiesByCvId(cvId).then(result => setCvTechnologies(result.data.data))
     }, [])
+
+    const handleGetTechnology = (cvTechnology) => {
+        dispatch(getCvTechnology(cvTechnology));
+    }
 
     return (
         <div>
@@ -40,6 +47,14 @@ export default function CvTechnologyList() {
                                     </td>
                                 </tr>
                             </td>
+                            <tr>
+                                <td className="leftTd" >
+                                </td>
+                                <td className="rightTd">
+                                    <Button onClick={() => handleGetTechnology(cvTechnology)}
+                                        style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>Güncelle</Button>
+                                </td>
+                            </tr>
                         </Table>
                     ))
                 }

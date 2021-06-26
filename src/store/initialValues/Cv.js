@@ -1,1 +1,1 @@
-export const cvId={}
+export const cvs={}
