@@ -7,6 +7,9 @@ import WorkExperienceReducer from "./reducers/WorkExperienceReducer";
 import CvTechnologyReducer from "./reducers/CvTechnologyReducer";
 import CvForeignLanguageReducer from "./reducers/CvForeignLanguageReducer";
 import CvSocialMediaReducer from "./reducers/CvSocialMediaReducer";
+import SystemPersonnelReducer from "./reducers/SystemPersonnelReducer";
+import EmployerReducer from "./reducers/EmployerReducer";
+import UserReducer from "./reducers/UserReducer";
 
 const rootReducer = combineReducers({
     cv: CvReducer,
@@ -15,6 +18,9 @@ const rootReducer = combineReducers({
     cvTechnology: CvTechnologyReducer,
     cvForeignLanguage: CvForeignLanguageReducer,
     cvSocialMedia: CvSocialMediaReducer,
+    systemPersonnel: SystemPersonnelReducer,
+    employer: EmployerReducer,
+    user: UserReducer,
 
 }) 
 

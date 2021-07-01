@@ -4,11 +4,13 @@ export default class JobAdvertisementService {
 
     getJobAdvertisements() {
         return axios.get("/api/jobAdvertisement/getAll")
-
     }
     getJobAdvertisementsSorted() {
         return axios.get("/api/jobAdvertisement/getAll")
 
+    }
+    getAllByPageSize(pageNo, pageSize){
+        return axios.get("/api/jobAdvertisement/getAllByPageSize?pageNo="+pageNo+"&pageSize="+pageSize)
     }
     getActiveOrPassiveJobAdvertisementsSorted(status) {
         return axios.get("/api/jobAdvertisement/getAllSortedJobAdvertisementByStatus?status="+status)

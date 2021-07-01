@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink, useHistory } from 'react-router-dom';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import { Container, Menu } from 'semantic-ui-react'
 import '../../css/Navi.css'
 import Login from './Login';
@@ -20,25 +20,26 @@ export default function Navi() {
     function handleSingIn() {
         setIsAuthenticated(true)
     }
+
     return (
-        <div className="Navi" style={{ backgroundColor: "black", color: "white" }}>
-            <div>
-                <Menu inverted fixed='top'>
-                    <Container>
-                        <Menu.Item as={NavLink} to="/" style={{ marginLeft: "3em", marginTop: "0.3em", color: "white", position: "left" }}
-                            name='Anasayfa'
-                        />
-                        <Menu.Menu position='right'>
-                            {isAuthenticated ? <Login logOut={handleSingOut} />
-                                : <Logout logIn={handleSingIn} />}
-                        </Menu.Menu>
+        <div  >
+            <Menu inverted fixed='top' className="naviMenu">
+                <Container>
+                    <Menu.Item>
+                        <Link style={{marginLeft: "3em", marginTop: "0.3em", color: "white", position: "left", fontSize:"20px" }} to="/">Anasayfa</Link>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Link style={{marginLeft: "1em", marginTop: "0.3em", color: "white", position: "left", fontSize:"18px" }} to="/10/jobAdvertisement">İş İlanları</Link>
+                    </Menu.Item>
+                    <Menu.Menu position='right'>
+                        {isAuthenticated ?
+                            <Login logOut={handleSingOut} />
+                            : <Logout logIn={handleSingIn} />}
+                    </Menu.Menu>
 
-                    </Container>
+                </Container>
 
-                </Menu>
-            </div>
-
+            </Menu>
         </div>
-
     );
 }

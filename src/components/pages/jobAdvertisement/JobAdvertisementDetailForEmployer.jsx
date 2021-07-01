@@ -147,11 +147,13 @@ export default function JobAdvertisementDetailForEmployer() {
                         <td>
                             {
                                 jobAdvertisement.advertisementStatus == true &&
-                                <Button onClick={() => setStatus(7, jobAdvertisementId, false)} style={{ backgroundColor: "#505050", color: "white", marginBottom: "0.001em" }}>İlanı Pasif Hale Getir</Button>
+                                <Button onClick={() => setStatus(7, jobAdvertisementId, false)} style={{ backgroundColor: "#505050", color: "white", marginBottom: "0.001em" }}>
+                                    İlanı Pasif Hale Getir</Button>
                             }
                             {
                                 jobAdvertisement.advertisementStatus == false &&
-                                <Button onClick={() => setStatus(7, jobAdvertisementId, true)} style={{ backgroundColor: "#780000", color: "white", marginBottom: "0.001em" }}>İlanı Aktif Hale Getir</Button>
+                                <Button onClick={() => setStatus(7, jobAdvertisementId, true)} style={{ backgroundColor: "#780000", color: "white", marginBottom: "0.001em" }}>
+                                    İlanı Aktif Hale Getir</Button>
                             }
                         </td>
 

@@ -5,14 +5,14 @@
 }
 
  .cvTable .leftTd{
-    width:25%;
+    width:35%;
     font-weight: bold;
     font-size: medium;
     
 }
 
  .cvTable .rightTd{
-    width:75%;
+    width:65%;
     font-size: medium;
     
 }

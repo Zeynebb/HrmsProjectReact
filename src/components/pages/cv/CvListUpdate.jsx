@@ -2,29 +2,18 @@ import React, { useEffect, useState } from 'react'
 import CvService from '../../services/CvService'
 import { Table, Segment, TextArea, Form } from 'semantic-ui-react'
 import '../../../css/CvList.css'
-import { useHistory, useParams } from 'react-router';
+import {  useParams } from 'react-router';
 import moment from 'moment';
 import { Button } from 'rebass';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
+import { toast } from 'react-toastify';
 
 export default function CvListUpdate() {
 
     let { cvId } = useParams()
     let cvService = new CvService()
     const [cvs, setCvs] = useState([]);
-
-    const [isUpdated, setIsUpdated] = useState(true)
-
-    const history = useHistory()
-
-    function handleUpdated() {
-        setIsUpdated(true)
-
-    }
-    function handleNotUpdated() {
-        setIsUpdated(false)
-    }
 
     useEffect(() => {
         cvService.getCvsByCvId(cvId).then(result => setCvs(result.data.data))
@@ -51,6 +40,15 @@ export default function CvListUpdate() {
             };
             console.log(cv);
             cvService.addCv(cv).then((result) => console.log(result.data.message));
+            toast.success('Ön Söz Başarıyla Güncellendi.', {
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
         },
     });
 

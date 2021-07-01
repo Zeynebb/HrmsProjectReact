@@ -63,7 +63,6 @@ export default function ApprovedEmployerList() {
                                 <Button onClick={() => employerVerification(employer.userId, false)} style={{ backgroundColor: "#505050", color: "white", marginBottom: "0.001em" }}>Onayı İptal Et</Button>
                             </td>
                         </tr>
-
                     </Table>
                 </Segment.Group>
             ))}

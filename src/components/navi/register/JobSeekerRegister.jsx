@@ -52,35 +52,35 @@ export default function JobSeekerRegister() {
                 <Segment>
                     <form onSubmit={formik.handleSubmit} style={{ fontFamily: "Arial", fontWeight: "bold" }}>
                         <div style={{ textAlign: "left" }} >
-                            <div style={{ arginTop: "1em", marginBottom: "1em" }}>
+                            <div style={{ marginTop: "1em", marginBottom: "1em" }}>
                                 <label>İsim:</label>
                                 <Input id="firstName" fluid style={{ marginRight: "1em", marginTop: "1em" }} placeholder='İsim...' values={formik.values.firstName} onChange={formik.handleChange} required ></Input>
                                 {formik.errors.firstName && formik.touched.firstName && (
                                     <p style={{ color: "red" }}>{formik.errors.firstName}</p>
                                 )}
                             </div>
-                            <div style={{ arginTop: "1em", marginBottom: "1em" }}>
+                            <div style={{ marginTop: "1em", marginBottom: "1em" }}>
                                 <label>Soyisim:</label>
                                 <Input id="lastName" fluid style={{ marginRight: "1em", marginTop: "1em" }} placeholder='Soyisim...' values={formik.values.lastName} onChange={formik.handleChange} required ></Input>
                                 {formik.errors.lastName && formik.touched.lastName && (
                                     <p style={{ color: "red" }}>{formik.errors.lastName}</p>
                                 )}
                             </div>
-                            <div style={{ arginTop: "1em", marginBottom: "1em" }}>
+                            <div style={{ marginTop: "1em", marginBottom: "1em" }}>
                                 <label >TC.Kimlik Numarası:</label>
                                 <Input id="nationalityId" fluid style={{ marginRight: "1em", marginTop: "1em" }} placeholder='TC.Kimlik Numarası...' values={formik.values.nationalityId} onChange={formik.handleChange} required ></Input>
                                 {formik.errors.nationalityId && formik.touched.nationalityId && (
                                     <p style={{ color: "red" }}>{formik.errors.nationalityId}</p>
                                 )}
                             </div>
-                            <div style={{ arginTop: "1em", marginBottom: "1em" }}>
+                            <div style={{ marginTop: "1em", marginBottom: "1em" }}>
                                 <label>Doğum Tarihi:</label>
                                 <Input id="birthYear" fluid style={{ marginRight: "1em", marginTop: "1em" }} placeholder='Doğum Tarihi...' values={formik.values.birthYear} onChange={formik.handleChange} required></Input>
                                 {formik.errors.birthYear && formik.touched.birthYear && (
                                     <p style={{ color: "red" }}>{formik.errors.birthYear}</p>
                                 )}
                             </div>
-                            <div style={{ arginTop: "1em", marginBottom: "1em" }}>
+                            <div style={{ marginTop: "1em", marginBottom: "1em" }}>
                                 <label>Email:</label>
                                 <Input type="email" id="email" fluid style={{ marginRight: "1em", marginTop: "1em" }} placeholder='Email...' values={formik.values.email} onChange={formik.handleChange} required></Input>
                                 <label style={{ fontSize: "0.8em" }}>Doğrulama Kodu Gönder</label>
@@ -88,21 +88,21 @@ export default function JobSeekerRegister() {
                                     <p style={{ color: "red" }}>{formik.errors.email}</p>
                                 )}
                             </div>
-                            <div style={{ arginTop: "1em", marginBottom: "1em" }}>
+                            <div style={{ marginTop: "1em", marginBottom: "1em" }}>
                                 <label>Şifre:</label>
                                 <Input id="password" type="password" fluid style={{ marginRight: "1em", marginTop: "1em" }} placeholder='Şifre...' values={formik.values.password} onChange={formik.handleChange} required></Input>
                                 {formik.errors.password && formik.touched.password && (
                                     <p style={{ color: "red" }}>{formik.errors.password}</p>
                                 )}
                             </div>
-                            <div style={{ arginTop: "1em", marginBottom: "1em" }}>
+                            <div style={{ marginTop: "1em", marginBottom: "1em" }}>
                                 <label>Şifre Tekrarı:</label>
                                 <Input id="passwordAgain" type="password" fluid style={{ marginRight: "1em", marginTop: "1em" }} placeholder='Şifre Tekrarı...' values={formik.values.passwordAgain} onChange={formik.handleChange} required ></Input>
                                 {formik.errors.passwordAgain && formik.touched.passwordAgain && (
                                     <p style={{ color: "red" }}>{formik.errors.passwordAgain}</p>
                                 )}
                             </div>
-                            <div style={{ arginTop: "1em", marginBottom: "1em" }}>
+                            <div style={{ marginTop: "1em", marginBottom: "1em" }}>
                                 <label>Doğrulama Kodu:</label>
                                 <Input id="validationCode" fluid style={{ marginRight: "1em", marginTop: "1em" }} placeholder='Doğrulama Kodu...' values={formik.values.validationCode} onChange={formik.handleChange} required></Input>
                                 {formik.errors.firstNavalidationCodeme && formik.touched.validationCode && (

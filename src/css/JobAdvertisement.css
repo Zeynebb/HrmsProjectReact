@@ -5,14 +5,14 @@
 }
 
  .jobAdvertisementTable .leftTd{
-    width:25%;
+    width:45%;
     font-weight: bold;
     font-size: medium;
     
 }
 
  .jobAdvertisementTable .rightTd{
-    width:75%;
+    width:55%;
     font-size: medium;
     
 }

@@ -6,6 +6,7 @@ import { Segment, Table } from 'semantic-ui-react'
 import CvService from '../../services/CvService'
 import CvPhotos from '../cvPhotos/CvPhotos'
 import Moment from 'moment';
+import FavoriteService from '../../services/FavoriteService'
 
 export default function Cvs() {
 
@@ -22,7 +23,7 @@ export default function Cvs() {
             {
                 cvs.map(cv => (
                     <Segment.Group piled>
-                        <Segment inverted style={{ textAlign: "left" }}><h3 className="headerThree" >Özgeçmiş</h3></Segment>
+                        <Segment inverted color="black" style={{ textAlign: "left" }}><h3 className="headerThree" >Özgeçmiş</h3></Segment>
                         <Table className="cvTable">
                             <td width="10%">
                                 <tr>

@@ -1,0 +1,10 @@
+.favoriteIcon{
+    position: absolute;
+    right: 3%;
+    top: 10%;
+}
+
+.jobAdvertisementDiv{
+    text-align: left;
+    font-family: "Arial, Helvetica, sans-serif";
+}

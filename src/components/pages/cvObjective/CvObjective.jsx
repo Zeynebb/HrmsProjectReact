@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
-import { Segment, Table, Button } from 'semantic-ui-react';
+import { Segment, Table, Button, Grid } from 'semantic-ui-react';
 import { getCv } from '../../../store/actions/CvActions';
 import CvService from '../../services/CvService';
 
@@ -23,34 +23,27 @@ export default function CvObjective() {
     }
     return (
         <div>
-            {
-                cvs.map(cv => (
-                    <Segment.Group piled>
-                        <Segment inverted style={{ textAlign: "left" }}><h3 className="headerThree" >Ön Söz </h3></Segment>
-                        <Table className="cvTable">
-                            <td>
-                                <tr>
-                                    <td width="5%" >
-                                        <p style={{ fontSize: "20px" }}>&#9733;</p>
-                                    </td>
-                                    <td width="95%" style={{ fontSize: "16px" }}>
-                                        <p>{cv.objective}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td >
-                                    </td>
-                                    <td >
-                                        <Button onClick={()=>handleGetCvId(cv)}
-                                            style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>Güncelle</Button>
-                                    </td>
-                                </tr>
-                            </td>
+            <Segment.Group piled>
+                <Segment inverted color="black" style={{ textAlign: "left" }}><h3 className="headerThree">Ön Söz </h3></Segment>
+                {
+                    cvs.map(cv => (
+                        <Segment>
+                            <Grid style={{ fontSize: "15px" }}>
+                                <Grid.Column width={1} style={{ marginLeft: "4%" }}>
+                                    <p style={{ fontSize: "25px" }}>&#9733;</p>
+                                </Grid.Column>
+                                <Grid.Column width={11} style={{ textAlign: "left", marginTop: "1%" }}>
+                                    <p>{cv.objective}</p>
+                                </Grid.Column>
+                                <Grid.Column width={3} style={{ marginTop: "1%" }}>
+                                    <Button onClick={() => handleGetCvId(cv)}
+                                        style={{ float: "right", backgroundColor: "black", color: "white", }}>Güncelle</Button>
+                                </Grid.Column>
+                            </Grid>
 
-                        </Table>
-                    </Segment.Group>
-                ))
-            }
+                        </Segment>
+                    ))}
+            </Segment.Group>
         </div>
     )
 }

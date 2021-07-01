@@ -1,26 +1,46 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import { Segment, Table } from 'semantic-ui-react'
+import { Button, Segment, Table } from 'semantic-ui-react'
 import JobAdvertisementService from '../../services/JobAdvertisementService'
 import '../../../css/JobAdvertisement.css'
 import * as moment from 'moment'
+import { NavLink } from 'react-router-dom'
+import FavoriteService from '../../services/FavoriteService'
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import '../../../css/JobAdvertisementList.css'
 
 export default function JobAdvertisementDetails() {
 
+    let { jobSeekerId } = useParams()
     let { jobAdvertisementId } = useParams()
 
     const [jobAdvertisement, setJobAdvertisement] = useState({})
+    let favoriteService = new FavoriteService()
 
     useEffect(() => {
         let jobAdvertisementService = new JobAdvertisementService()
         jobAdvertisementService.getJobAdvertisementByJobAdvertisementId(jobAdvertisementId).then(result => setJobAdvertisement(result.data.data))
     }, [])
 
+    function addFavorite(jobAdvertisementId) {
+        let favorite = {
+            jobAdvertisement: { jobAdvertisementId: jobAdvertisementId },
+            jobSeeker: { userId: jobSeekerId }
+        }
+        favoriteService.add(favorite).then(result => console.log(result.data.message))
 
+    }
+    function deleteFavorite(jobAdvertisementId) {
+        favoriteService.deleteByJobAdvertisementId(jobAdvertisementId).then(result => console.log(result.data.message))
+
+    }
     return (
         <div>
             <Segment.Group>
-                <Segment  style={{backgroundColor:"black"}}><h3 style={{backgroundColor:"black", color:"white", marginLeft: "1em" ,fontFamily:"Arial, Helvetica, sans-serif"}} >İş İlanı - {jobAdvertisement.position?.positionName}</h3></Segment>
+                <Segment style={{ backgroundColor: "black" }}><h3 style={{ backgroundColor: "black", color: "white", marginLeft: "1em", fontFamily: "Arial, Helvetica, sans-serif" }} >
+                    İş İlanı - {jobAdvertisement.position?.positionName}</h3>
+                </Segment>
                 <Table className="jobAdvertisementTable">
                     <tr>
                         <td className="leftTd" >
@@ -114,7 +134,13 @@ export default function JobAdvertisementDetails() {
                         <td className="rightTd" >
                             <p>{jobAdvertisement.employer?.website}</p>
                         </td>
-
+                    </tr>
+                    <tr>
+                        <td className="leftTd" >
+                        </td>
+                        <td className="rightTd" >
+                            <Button as={NavLink} to={`/${jobSeekerId}/jobAdvertisement`} style={{ backgroundColor: "black", color: "white", marginLeft: "0.5em", marginBottom: "0.001em" }} >Geri Dön</Button>
+                        </td>
                     </tr>
                 </Table>
             </Segment.Group>

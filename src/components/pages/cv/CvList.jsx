@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import CvService from '../../services/CvService'
-import '../../../css/CvList.css'
 import CvEducationInformationList from '../cvEducationInformation/CvEducationInformationList';
 import CvWorkExperienceList from '../cvWorkExperiences/CvWorkExperienceList';
 import CvTechnologyList from '../cvTechnologies/CvTechnologyList';
