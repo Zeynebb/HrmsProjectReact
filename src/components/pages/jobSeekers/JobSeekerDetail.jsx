@@ -1,70 +1,69 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import { Segment, Table } from 'semantic-ui-react'
+import { Grid, Segment, Table } from 'semantic-ui-react'
 import JobSeekerService from '../../services/JobSeekerService'
 import CvPhotos from '../cvPhotos/CvPhotos'
 
 export default function JobSeekerDetail() {
 
-    let { jobSeekerId } = useParams()
+    let { userId } = useParams()
     let { cvId } = useParams()
 
     const [jobSeeker, setJobSeeker] = useState({})
 
     useEffect(() => {
         let jobSeekerService = new JobSeekerService()
-        jobSeekerService.getJobSeekerByUserId(jobSeekerId).then(result => setJobSeeker(result.data.data))
+        jobSeekerService.getJobSeekerByUserId(userId).then(result => setJobSeeker(result.data.data))
     }, [])
 
     return (
         <div>
-            <Segment.Group>
-                <Segment inverted style={{ textAlign: "left" }}><h3 className="headerThree" >İletişim Bilgileri </h3></Segment>
-                <Table className="cvTable">
-                    <td width="10%">
-                        <tr>
-                        </tr>
-                        <tr>
+            <Segment.Group piled>
+                <Segment inverted color="black" style={{ textAlign: "left" }}><h3 className="headerThree">İletişim Bilgileri </h3></Segment>
+                <Segment>
+                    <Grid style={{ fontSize: "17px", fontFamily:"Arial" }}>
+                        <Grid.Column width={4} style={{ marginLeft: "4%", marginTop: "3%" }}>
                             <CvPhotos />
-                        </tr>
-                    </td>
-                    <td width="90%">
-                        <tr>
-                            <td className="leftTd" >
-                                <p>İsim:</p>
-                            </td>
-                            <td className="rightTd" >
-                                <p>{jobSeeker.firstName}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="leftTd" >
-                                <p>Soyisim:</p>
-                            </td>
-                            <td className="rightTd">
-                                <p>{jobSeeker.lastName}</p>
-                            </td>
+                            </Grid.Column>
+                        <Grid.Column width={10} >
+                            <Grid >
+                                <Grid.Row>
+                                    <Grid.Column width={4} style={{ textAlign: "left", marginTop: "1%", fontWeight: "bold" }}>
+                                        <p>İsim:</p>
+                                    </Grid.Column>
+                                    <Grid.Column width={12} style={{ textAlign: "left", marginTop: "1%" }}>
+                                        {jobSeeker.firstName}
+                                    </Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row>
+                                    <Grid.Column width={4} style={{ textAlign: "left",fontWeight: "bold" }}>
+                                        <p>Soyisim:</p>
+                                    </Grid.Column>
+                                    <Grid.Column width={12} style={{ textAlign: "left" }}>
 
-                        </tr>
-                        <tr>
-                            <td className="leftTd" >
-                                <p>Email:</p>
-                            </td>
-                            <td className="rightTd" >
-                                <p>{jobSeeker.email}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="leftTd" >
-                                <p>Doğum Yılı:</p>
-                            </td>
-                            <td className="rightTd" >
-                                <p>{jobSeeker.birthYear}</p>
-                            </td>
-
-                        </tr>
-                    </td>
-                </Table>
+                                        <p>{jobSeeker.lastName}</p>
+                                    </Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row>
+                                    <Grid.Column width={4} style={{ textAlign: "left", fontWeight: "bold" }}>
+                                        <p>Email:</p>
+                                    </Grid.Column>
+                                    <Grid.Column width={12} style={{ textAlign: "left" }}>
+                                        <p>{jobSeeker.email}</p>
+                                    </Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row>
+                                    <Grid.Column width={4} style={{textAlign: "left", fontWeight: "bold" }}>
+                                        <p>Doğum Yılı:</p>
+                                    </Grid.Column>
+                                    <Grid.Column width={12} style={{ textAlign: "left" }}>
+                                        <p>{jobSeeker.birthYear}</p>
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+                        </Grid.Column>
+                    </Grid>
+                </Segment>
             </Segment.Group>
         </div>
     )

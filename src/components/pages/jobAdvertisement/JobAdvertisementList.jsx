@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom';
-import { Image, Segment, Button, Grid, Rating } from 'semantic-ui-react'
+import { Image, Segment, Button, Grid, Rating, Dropdown } from 'semantic-ui-react'
 import CityService from '../../services/CityService';
 import WorkTimeTypeService from '../../services/WorkTimeTypeService';
 import { MultiSelect } from "primereact/multiselect";
@@ -13,11 +13,12 @@ import { RadioButton } from "primereact/radiobutton";
 
 export default function JobAdvertisementList() {
 
-    let { jobSeekerId } = useParams()
+    let { userId } = useParams()
 
     const [activePage, setActivePage] = useState(1);
-    const [pageSize, setPageSize] = useState(3);
+    //const [pageSize, setPageSize] = useState(3);
     const [jobAdvertisements, setJobAdvertisements] = useState([]);
+    const [jobAdvertisementsDefault, setJobAdvertisementsDefault] = useState([]);
     const [cities, setCities] = useState([]);
     const [workTimeTypes, setWorkTimeTypes] = useState([])
     const [selectedRepresentative, setSelectedRepresentative] = useState([]);
@@ -29,13 +30,13 @@ export default function JobAdvertisementList() {
     let favoriteService = new FavoriteService()
 
     useEffect(() => {
-        jobAdvertisementService.getJobAdvertisements().then((result) => setJobAdvertisements(result.data.data))
+        jobAdvertisementService.getByAdvertisementStatusAndApprovalStatus().then((result) => setJobAdvertisements(result.data.data))
+        jobAdvertisementService.getByAdvertisementStatusAndApprovalStatus().then((result) => setJobAdvertisementsDefault(result.data.data))
         favoriteService.getAll().then(result => setFavorites(result.data.data))
         let cityService = new CityService();
         cityService.getCities().then((result) => setCities(result.data.data));
         let workTimeTypeService = new WorkTimeTypeService()
         workTimeTypeService.getWorkTimeTypes().then(result => setWorkTimeTypes(result.data.data))
-        favoriteService.getAll().then(result => console.log(result.data.data))
         jobAdvertisementService.getAllByPageSize(activePage, selectedCategory.key)
     }, []);
 
@@ -54,16 +55,16 @@ export default function JobAdvertisementList() {
     }));
 
     //Dropdown-çalışma zamanı tipleri
-    const getWorkTimeTypes = workTimeTypes.map((workTimetype, index) => ({
+    const getWorkTimeTypes = workTimeTypes.map((workTimeType, index) => ({
         key: index,
-        name: workTimetype.workTimeTypeName,
-        value: workTimetype.workTimeTypeId,
+        name: workTimeType.workTimeTypeName,
+        value: workTimeType.workTimeTypeId,
     }));
 
     function addFavorite(jobAdvertisementId) {
         let favorite = {
             jobAdvertisement: { jobAdvertisementId: jobAdvertisementId },
-            jobSeeker: { userId: jobSeekerId }
+            jobSeeker: { userId: userId }
         }
         favoriteService.add(favorite).then(result => console.log(result.data.message))
     }
@@ -73,7 +74,8 @@ export default function JobAdvertisementList() {
     const [selectedCities, setselectedCities] = useState([]);
     const [selectedWorkTimeTypes, setSelectedWorkTimeTypes] = useState([]);
 
-    let withFilterData = jobAdvertisements.filter((jobAdvertisement) => selectedCities.includes(jobAdvertisement.city.cityId))
+    //pagination işleminden etkilenmemesi için jobAdvertisementsDefault olarak tanımlanan bütün iş ilanları filtreleniyor
+    let withFilterData = jobAdvertisementsDefault.filter((jobAdvertisement) => selectedCities.includes(jobAdvertisement.city.cityId))
     let withoutFilterData = jobAdvertisements
     function handleData() {
         if (selectedCities.length === 0) {
@@ -82,9 +84,11 @@ export default function JobAdvertisementList() {
 
         else {
             return withFilterData
+
         }
     }
-    let withWorkTimeTypeFilterData = jobAdvertisements.filter((jobAdvertisement) => selectedWorkTimeTypes.includes(jobAdvertisement.workTimeType.workTimeTypeId))
+    //pagination işleminden etkilenmemesi için jobAdvertisementsDefault olarak tanımlanan bütün iş ilanları filtreleniyor
+    let withWorkTimeTypeFilterData = jobAdvertisementsDefault.filter((jobAdvertisement) => selectedWorkTimeTypes.includes(jobAdvertisement.workTimeType.workTimeTypeId))
     let withoutWorkTimeTypeFilterData = jobAdvertisements
     function handleWorkTimeTypeData() {
         if (selectedWorkTimeTypes.length === 0) {
@@ -94,14 +98,26 @@ export default function JobAdvertisementList() {
             return withWorkTimeTypeFilterData
         }
     }
-    function defaultValue(jobAdvertisementId) {
-        favorites.find(favoriteJobAdvertisement => (favoriteJobAdvertisement.jobAdvertisement.jobAdvertisementId === jobAdvertisementId) ? 1 : 0)
+
+    let filteredJobAdvertisement = []
+    if (selectedCities.length > 0 && selectedWorkTimeTypes.length === 0) {
+        filteredJobAdvertisement = _.intersection(handleData())//Şehir varsa
     }
+    else if (selectedCities.length === 0 && selectedWorkTimeTypes.length > 0) {
+        filteredJobAdvertisement = _.intersection(handleWorkTimeTypeData())//çalışma zamanı varsa
+    }
+    else if (selectedCities.length > 0 && selectedWorkTimeTypes.length > 0) {
+        filteredJobAdvertisement = _.intersection(handleData(), handleWorkTimeTypeData())//şehir + çalışma zamanı varsa
+    }
+    else if (selectedCities.length === 0 && selectedWorkTimeTypes.length === 0) {//şehir + çalışma zamanı yoksa
+        filteredJobAdvertisement = jobAdvertisements
+    }
+
 
     let newJobAdvertisementData = _.intersection(handleData(), handleWorkTimeTypeData())
     //console.log(withFilterData)
     //console.log(selectedCities)
-    //console.log(withWorkTimeTypeFilterData)
+    //console.log(filteredJobAdvertisement)
     //console.log(_.intersection(withFilterData, withWorkTimeTypeFilterData))
     //console.log(_.intersection(handleData(), handleWorkTimeTypeData()))
     return (
@@ -124,7 +140,7 @@ export default function JobAdvertisementList() {
                                                 (setSelectedRepresentative(e.value), setselectedCities(e.value))} />
                                     </div>
                                 </Grid.Column>
-                                <Grid.Column width={8}>
+                                <Grid.Column width={6}>
                                     <div>
                                         <MultiSelect style={{ marginLeft: "1em" }}
                                             placeholder="Çalışma Zamanı Tipi..."
@@ -137,14 +153,12 @@ export default function JobAdvertisementList() {
                                                 (setSelectedWorkTimeRepresentative(e.value), setSelectedWorkTimeTypes(e.value))} />
                                     </div>
                                 </Grid.Column>
-                                <Grid.Column width={4}>
+                                <Grid.Column width={6}>
                                     <div>
                                         <label>Sayfada Görüntülenecek İlan Sayısı</label>
                                         {categories.map((category) => (
-                                            <div className="pageradiobtn">
-
+                                            <div >
                                                 <RadioButton
-                                                    className="pageradiobtnstyle"
                                                     inputId={category.key}
                                                     name="category"
                                                     value={category}
@@ -155,14 +169,15 @@ export default function JobAdvertisementList() {
                                                 />
                                                 <label htmlFor={category.key}>{category.name}</label>
                                             </div>
-                                        ))}</div>
+                                        ))}
+                                    </div>
                                 </Grid.Column>
                             </Grid.Row>
                         </Grid>
                     </Segment>
                 </Segment>
                 <br />
-            </div>{newJobAdvertisementData.map(jobAdvertisement => (
+            </div>{filteredJobAdvertisement.map(jobAdvertisement => (
                 <div style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>
                     <Segment.Group piled>
                         <Segment style={{ backgroundColor: "black" }}>
@@ -179,7 +194,7 @@ export default function JobAdvertisementList() {
                                         <p style={{ marginLeft: "1em", marginTop: "1em" }}> {jobAdvertisement.jobDescription}</p>
                                         <p style={{ marginLeft: "1em", marginTop: "1em", marginBottom: "1em" }}>{jobAdvertisement.employer.companyName}</p>
                                         <p style={{ marginLeft: "1em", marginTop: "1em", marginBottom: "1em" }}>{jobAdvertisement.city.cityName}</p>
-                                        <Button as={NavLink} to={`/${jobSeekerId}/jobAdvertisement/${jobAdvertisement.jobAdvertisementId}`} style={{ backgroundColor: "black", color: "white", marginLeft: "1em" }} >İncele </Button>
+                                        <Button as={NavLink} to={`/${userId}/jobAdvertisement/${jobAdvertisement.jobAdvertisementId}`} style={{ backgroundColor: "black", color: "white", marginLeft: "1em" }} >İncele </Button>
                                     </div>
                                     <Rating icon="heart" className="favoriteIcon"
                                         defaultRating={favorites.find(favoriteJobAdversitement =>

@@ -1,5 +1,5 @@
 import { GET_CV_TECHNOLOGY } from "../actions/CvTechnologyActions";
-import { cvTechnology, } from "../initialValues/CvTechnology";
+import { cvTechnology } from "../initialValues/CvTechnology";
 
 const initialState = {
     cvTechnology: cvTechnology

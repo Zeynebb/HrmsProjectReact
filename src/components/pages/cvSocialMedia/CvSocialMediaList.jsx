@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import CvSocialMediaService from '../../services/CvSocialMediaService'
-import { Table, Segment, Image, Button, Grid } from 'semantic-ui-react'
+import { Table, Segment, Image, Button, Grid, Icon } from 'semantic-ui-react'
 import { useParams } from 'react-router';
 import '../../../css/CvList.css'
-import getCvSocialMedia from '../../../store/actions/CvSocialMediaActions';
+import getCvSocialMedia, { getCvSocialMediaState } from '../../../store/actions/CvSocialMediaActions';
 import { useDispatch } from 'react-redux';
 
 export default function CvSocialMediaList() {
@@ -21,15 +21,31 @@ export default function CvSocialMediaList() {
     const handleGetSocialMedia = (cvSocialMedia) => {
         dispatch(getCvSocialMedia(cvSocialMedia));
     }
+    const handleGetSocialMediaState = (state) => {
+        let newState = { state }
+        dispatch(getCvSocialMediaState(newState));
+    }
 
     return (
         <div>
             <Segment.Group piled>
-                <Segment inverted color="black" style={{ textAlign: "left" }}><h3 className="headerThree">Sosyal Medyalar </h3></Segment>
+                <Segment inverted color="black" style={{ textAlign: "left" }}>
+                    <Grid>
+                        <Grid.Row>
+                            <Grid.Column width={10} style={{ textAlign: "left", marginTop: "1%" }}>
+                                <h3 className="headerThree">Sosyal Medyalar </h3>
+                            </Grid.Column>
+                            <Grid.Column width={6} style={{ textAlign: "right" }}>
+                                <Button onClick={() => handleGetSocialMediaState(2)} style={{ fontFamily: "Arial" }} fluid>
+                                    <Icon name="plus"></Icon>Yeni Sosyal Medya Ekle</Button>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </Segment>
                 {
                     cvSocialMedia.map(cvSocialMedia => (
                         <Segment>
-                            <Grid style={{ fontSize: "15px" }}>
+                            <Grid style={{ fontSize: "15px", fontFamily: "Arial" }}>
                                 <Grid.Column width={1} style={{ marginLeft: "4%", marginTop: "4%" }}>
                                     {cvSocialMedia.socialMediaId == 1 &&
                                         <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623787549/GithubIcon_y0llz4.png' size='mini' />
@@ -67,8 +83,8 @@ export default function CvSocialMediaList() {
                                         </Grid.Row>
                                     </Grid>
                                 </Grid.Column>
-                                <Grid.Column width={2} style={{ marginTop: "3%"}}>
-                                    <Button onClick={() => handleGetSocialMedia(cvSocialMedia)}
+                                <Grid.Column width={2} style={{ marginTop: "3%" }}>
+                                    <Button onClick={() => {handleGetSocialMedia(cvSocialMedia); handleGetSocialMediaState(1)}}
                                         style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>Güncelle</Button>
                                 </Grid.Column>
                             </Grid>

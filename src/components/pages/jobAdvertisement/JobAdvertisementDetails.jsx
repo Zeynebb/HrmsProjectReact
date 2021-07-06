@@ -12,7 +12,7 @@ import '../../../css/JobAdvertisementList.css'
 
 export default function JobAdvertisementDetails() {
 
-    let { jobSeekerId } = useParams()
+    let { userId } = useParams()
     let { jobAdvertisementId } = useParams()
 
     const [jobAdvertisement, setJobAdvertisement] = useState({})
@@ -26,7 +26,7 @@ export default function JobAdvertisementDetails() {
     function addFavorite(jobAdvertisementId) {
         let favorite = {
             jobAdvertisement: { jobAdvertisementId: jobAdvertisementId },
-            jobSeeker: { userId: jobSeekerId }
+            jobSeeker: { userId: userId }
         }
         favoriteService.add(favorite).then(result => console.log(result.data.message))
 
@@ -139,7 +139,7 @@ export default function JobAdvertisementDetails() {
                         <td className="leftTd" >
                         </td>
                         <td className="rightTd" >
-                            <Button as={NavLink} to={`/${jobSeekerId}/jobAdvertisement`} style={{ backgroundColor: "black", color: "white", marginLeft: "0.5em", marginBottom: "0.001em" }} >Geri Dön</Button>
+                            <Button as={NavLink} to={`/${userId}/jobAdvertisement`} style={{ backgroundColor: "black", color: "white", marginLeft: "0.5em", marginBottom: "0.001em" }} >Geri Dön</Button>
                         </td>
                     </tr>
                 </Table>

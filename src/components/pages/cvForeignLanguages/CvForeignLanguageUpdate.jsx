@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import * as Yup from "yup";
-import { Dropdown, Form, Image, Segment, Table, Button } from 'semantic-ui-react'
-import getCvForeignLanguage from '../../../store/actions/CvForeignLanguageActions'
+import { Dropdown, Image, Segment, Button, Grid } from 'semantic-ui-react'
+import getCvForeignLanguage, { getCvForeignLanguageState } from '../../../store/actions/CvForeignLanguageActions'
 import CvForeignLanguageService from '../../services/CvForeignLanguageService'
 import ForeignLanguageService from '../../services/ForeignLanguageService'
 import LanguageLevelService from '../../services/LanguageLevelService'
@@ -44,6 +44,9 @@ export default function CvForeignLanguageUpdate() {
     const handleGetForeignLanguage = () => {
         dispatch(getCvForeignLanguage(0));
     }
+    const handleGetForeignLanguageState = (state) => {
+        dispatch(getCvForeignLanguageState(state));
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -72,74 +75,69 @@ export default function CvForeignLanguageUpdate() {
 
     return (
         <div>
-            <Segment.Group piled >
+            <Segment.Group piled>
                 <Segment inverted color="black" style={{ textAlign: "left" }}><h3 className="headerThree">Yabancı Diller </h3></Segment>
-                <Form onSubmit={formik.handleSubmit} validationSchema={formik.validationSchema}>
-                    <Table className="cvTable">
-                        <td width="5%">
-                            <tr>
-                            </tr>
-                            <tr>
-                                <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623783705/translate_zboywx.png' size='mini' />
-                            </tr>
-                        </td>
-                        <td width="95%">
-                            <tr>
-                                <td className="leftTd" >
-                                    <p>Yabancı Dil Adı:</p>
-                                </td>
-                                <td className="rightTd" >
-                                    <Dropdown
-                                        button
-                                        fluid
-                                        search
-                                        selection
-                                        id="foreignLanguageId"
-                                        options={getForeignLanguages}
-                                        onChange={(event, data) =>
-                                            formik.setFieldValue("foreignLanguageId", data.value)
-                                        }
-                                        value={formik.values.foreignLanguageId}
-                                    />
-                                    {formik.errors.foreignLanguageId && formik.touched.foreignLanguageId && (
-                                        <p style={{ color: "red" }}>{formik.errors.foreignLanguageId}</p>
-                                    )}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="leftTd" >
-                                    <p>Yabancı Dil Seviyesi:</p>
-                                </td>
-                                <td className="rightTd" >
-                                    <Dropdown
-                                        button
-                                        fluid
-                                        search
-                                        selection
-                                        id="languageLevelId"
-                                        options={getLanguageLevels}
-                                        onChange={(event, data) =>
-                                            formik.setFieldValue("languageLevelId", data.value)
-                                        }
-                                        value={formik.values.languageLevelId}
-                                    />
-                                    {formik.errors.languageLevelId && formik.touched.languageLevelId && (
-                                        <p style={{ color: "red" }}>{formik.errors.languageLevelId}</p>
-                                    )}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="leftTd" >
-                                </td>
-                                <td className="rightTd">
-                                    <Button type="submit" style={{ float: "right", backgroundColor: "#780000", color: "white", marginLeft: "1em" }}>KAYDET</Button>
-                                    <Button type="button" onClick={() => handleGetForeignLanguage()}
-                                        style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>GERİ DÖN</Button>
-                                </td>
-                            </tr>
-                        </td>
-                    </Table>
-                </Form>
+                <Segment>
+                    <Grid style={{ fontSize: "15px", fontFamily: "Arial" }}>
+                        <Grid.Column width={2} style={{ marginLeft: "4%", marginTop: "4%" }}>
+                            <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623783705/translate_zboywx.png' size='mini' />
+                        </Grid.Column>
+                        <Grid.Column width={11} >
+                            <Grid >
+                                <Grid.Row>
+                                    <Grid.Column width={5} style={{ textAlign: "right", marginTop: "3%", fontWeight: "bold" }}>
+                                        <p>Yabancı Dil Adı:</p>
+                                    </Grid.Column>
+                                    <Grid.Column width={11} style={{ textAlign: "left", marginTop: "1%" }}>
+                                        <Dropdown
+                                            button
+                                            fluid
+                                            search
+                                            selection
+                                            id="foreignLanguageId"
+                                            options={getForeignLanguages}
+                                            onChange={(event, data) =>
+                                                formik.setFieldValue("foreignLanguageId", data.value)
+                                            }
+                                            value={formik.values.foreignLanguageId}
+                                        />
+                                        {formik.errors.foreignLanguageId && formik.touched.foreignLanguageId && (
+                                            <p style={{ color: "red" }}>{formik.errors.foreignLanguageId}</p>
+                                        )}</Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row>
+                                    <Grid.Column width={5} style={{ marginTop: "2%", textAlign: "right", fontWeight: "bold" }}>
+                                        <p>Yabancı Dil Seviyesi:</p>
+                                    </Grid.Column>
+                                    <Grid.Column width={11} style={{ textAlign: "left" }}>
+                                        <Dropdown
+                                            button
+                                            fluid
+                                            search
+                                            selection
+                                            id="languageLevelId"
+                                            options={getLanguageLevels}
+                                            onChange={(event, data) =>
+                                                formik.setFieldValue("languageLevelId", data.value)
+                                            }
+                                            value={formik.values.languageLevelId}
+                                        />
+                                        {formik.errors.languageLevelId && formik.touched.languageLevelId && (
+                                            <p style={{ color: "red" }}>{formik.errors.languageLevelId}</p>
+                                        )}</Grid.Column>
+                                </Grid.Row>
+                                <Grid.Row>
+                                    <Grid.Column width={5}></Grid.Column>
+                                    <Grid.Column width={11}>
+                                        <Button type="submit" style={{ float: "right", backgroundColor: "#780000", color: "white", marginLeft: "1em" }}>KAYDET</Button>
+                                        <Button type="button" onClick={() => { handleGetForeignLanguage(); handleGetForeignLanguageState(0) }}
+                                            style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>GERİ DÖN</Button>
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+                        </Grid.Column>
+                    </Grid>
+                </Segment>
             </Segment.Group>
         </div>
     )

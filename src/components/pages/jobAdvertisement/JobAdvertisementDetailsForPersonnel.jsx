@@ -21,27 +21,11 @@ export default function JobAdvertisementDetailsForPersonnel() {
         jobAdvertisementService.changeApprovalStatusForJobAdvertisementId(jobAdvertisementId, status).then(result => console.log(result.data.message))
         {
             status == true &&
-                toast.success('İş İlanı Onaylandı.', {
-                    position: "bottom-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    });
+                toast.success('İş İlanı Onaylandı.')
         }
         {
-            status == false && 
-            toast.success('İş İlanı Reddedildi.', {
-                position: "bottom-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                });
+            status == false &&
+                toast.success('İş İlanı Reddedildi.')
         }
 
     }
@@ -192,5 +176,5 @@ export default function JobAdvertisementDetailsForPersonnel() {
 
             </Segment.Group>
         </div>
-    ) 
+    )
 }

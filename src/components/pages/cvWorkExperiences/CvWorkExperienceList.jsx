@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import WorkExperienceService from '../../services/WorkExperienceService'
-import { Table, Segment, Image, Button, Grid } from 'semantic-ui-react'
+import { Table, Segment, Image, Button, Grid,Icon  } from 'semantic-ui-react'
 import { useParams } from 'react-router';
 import '../../../css/CvList.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { getWorkExperience } from '../../../store/actions/WorkExperienceActions';
 import moment from 'moment';
+import getCvWorkExperienceState from '../../../store/actions/CvWorkExperienceActions';
 
 export default function CvWorkExperienceList() {
     const dispatch = useDispatch()
@@ -22,16 +23,32 @@ export default function CvWorkExperienceList() {
     const handleGetWorkExperience = (workExperience) => {
         dispatch(getWorkExperience(workExperience));
     }
+    const handleWorExperienceState = (state) => {
+        let newState = { state }
+        dispatch(getCvWorkExperienceState(newState));
+    }
 
     return (
         <div>
             <Segment.Group piled>
-                <Segment inverted color="black" style={{ textAlign: "left" }}><h3 className="headerThree">İş Deneyimleri </h3></Segment>
+                <Segment inverted color="black" style={{ textAlign: "left" }}>
+                    <Grid>
+                        <Grid.Row>
+                            <Grid.Column width={10} style={{ textAlign: "left", marginTop: "1%",fontFamily: "Arial" }}>
+                                <h3 className="headerThree">İş Deneyimleri </h3>
+                            </Grid.Column>
+                            <Grid.Column width={6} style={{ textAlign: "right" }}>
+                                <Button onClick={() => handleWorExperienceState(2)} style={{ fontFamily: "Arial"}} fluid>
+                                    <Icon name="plus"></Icon> Yeni İş Deneyimi Ekle</Button>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </Segment>
                 {
                     workExperiences.map(workExperience => (
                         <Segment>
-                            <Grid style={{ fontSize: "15px" }}>
-                                <Grid.Column width={2} style={{ marginLeft: "4%", marginTop: "4%" }}>
+                            <Grid style={{ fontSize: "15px", fontFamily: "Arial" }}>
+                                <Grid.Column width={2} style={{ marginLeft: "4%", marginTop: "1%" }}>
                                     <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623788957/work_vaf7yi.png' size='mini' style={{ marginTop: "5em" }} />
                                 </Grid.Column>
                                 <Grid.Column width={11} >
@@ -76,8 +93,8 @@ export default function CvWorkExperienceList() {
                                         </Grid.Row>
                                     </Grid>
                                 </Grid.Column>
-                                <Grid.Column width={2} style={{ marginTop: "3%" }}>
-                                    <Button onClick={() => handleGetWorkExperience(workExperience)}
+                                <Grid.Column width={2} style={{ marginTop: "8%" }}>
+                                    <Button onClick={() => { handleGetWorkExperience(workExperience); handleWorExperienceState(1) }}
                                         style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>Güncelle</Button>
                                 </Grid.Column>
                             </Grid>

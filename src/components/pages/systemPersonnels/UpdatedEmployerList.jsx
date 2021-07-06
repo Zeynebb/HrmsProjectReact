@@ -18,8 +18,6 @@ export default function UpdatedEmployerList() {
     function handleEmployer(employer) {
         dispatch(getEmployer(employer))
     }
-
-
     return (
         <div>
             <Table celled selectable>

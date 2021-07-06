@@ -6,13 +6,13 @@ import JobAdvertisementService from '../../services/JobAdvertisementService';
 
 export default function JobAdvertisementListForEmployer() {
 
-    const { employerId } = useParams()
+    const { userId } = useParams()
 
     const [jobAdvertisements, setJobAdvertisements] = useState([]);
 
     useEffect(() => {
         let jobAdvertisementService = new JobAdvertisementService()
-        jobAdvertisementService.getJobAdvertisementForEmployerId(employerId).then(result => setJobAdvertisements(result.data.data))
+        jobAdvertisementService.getJobAdvertisementForEmployerId(userId).then(result => setJobAdvertisements(result.data.data))
     }, [])
 
 
@@ -34,7 +34,8 @@ export default function JobAdvertisementListForEmployer() {
                                         <h2 style={{ marginLeft: "0.5em" }}>{jobAdvertisement.position.positionName}</h2>
                                         <p style={{ marginLeft: "1em", marginTop: "1em" }}> {jobAdvertisement.jobDescription}</p>
                                         <p style={{ marginLeft: "1em", marginTop: "1em", marginBottom: "1em" }}>{jobAdvertisement.employer.companyName}</p>
-                                        <Button as={NavLink} to={`/jobAdvertisementDetailForEmployer/${jobAdvertisement.jobAdvertisementId}`} style={{ backgroundColor: "black", color: "white", marginLeft: "1em" }} >İncele </Button>
+                                        <p style={{ marginLeft: "1em", marginTop: "1em", marginBottom: "1em" }}>{jobAdvertisement.city.cityName}</p>
+                                        <Button as={NavLink} to={`/${userId}/jobAdvertisementDetailForEmployer/${jobAdvertisement.jobAdvertisementId}`} style={{ backgroundColor: "black", color: "white", marginLeft: "1em" }} >İncele </Button>
                                     </div>
                                 </Segment>
                             </Segment.Group> </Segment>

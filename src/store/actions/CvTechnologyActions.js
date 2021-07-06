@@ -6,3 +6,4 @@ export default function getCvTechnology(cvTechnology) {
         payload: cvTechnology
     }
 }
+

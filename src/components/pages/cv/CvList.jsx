@@ -15,18 +15,25 @@ import CvTechnologyUpdate from '../cvTechnologies/CvTechnologyUpdate';
 import CvForeignLanguageUpdate from '../cvForeignLanguages/CvForeignLanguageUpdate';
 import CvSocialMediaUpdate from '../cvSocialMedia/CvSocialMediaUpdate';
 import { useParams } from 'react-router';
+import CvEducationInformationAdd from '../cvEducationInformation/CvEducationInformationAdd';
+import CvWorkExperienceAdd from '../cvWorkExperiences/CvWorkExperienceAdd';
+import CvTechnologyAdd from '../cvTechnologies/CvTechnologyAdd';
+import CvForeignLanguageAdd from '../cvForeignLanguages/CvForeignLanguageAdd';
+import CvSocialMediaAdd from '../cvSocialMedia/CvSocialMediaAdd';
 
 export default function CvList() {
 
     let { cvId } = useParams()
-    let { jobSeekerId } = useParams()
+    let { userId } = useParams()
 
-    const educationInformations = useSelector(state => state.educationInformation.educationId)
     const cvIds = useSelector(state => state.cv.cvId)
-    const workExperienceId = useSelector(state => state.workExperience.workExperienceId)
-    const cvTechnologyId = useSelector(state => state.cvTechnology.cvTechnologyId)
-    const cvForeignLanguageId = useSelector(state => state.cvForeignLanguage.cvForeignLanguageId)
-    const cvSocialMediaId = useSelector(state => state.cvSocialMedia.cvSocialMediaId)
+
+    //redux ile state kontrolü
+    const educationInformationState = useSelector(state => state.educationInformationState.state)
+    const workExperienceState = useSelector(state => state.workExperienceState.state)
+    const cvTechnologyState = useSelector(state => state.cvTechnologyState.state)
+    const cvForeignLanguageState = useSelector(state => state.cvForeignLanguageState.state)
+    const cvSocialMediaState = useSelector(state => state.cvSocialMediaState.state)
 
     const [cvs, setCvs] = useState([]);
 
@@ -44,24 +51,33 @@ export default function CvList() {
                 : <CvObjective />}
             <br />
             <br />
-            {(educationInformations) > 0 ? <CvEducationInformationListUpdate />
-                : <CvEducationInformationList />}
+            {educationInformationState == null && <CvEducationInformationList />
+            }
+            {educationInformationState == 1 && <CvEducationInformationListUpdate />
+            }
+            {educationInformationState == 2 && <CvEducationInformationAdd />
+            }
             <br />
             <br />
-            {(workExperienceId) > 0 ? <CvWorkExperienceUpdate />
-                : <CvWorkExperienceList />}
+
+            {workExperienceState == null && <CvWorkExperienceList />}
+            {workExperienceState == 1 && <CvWorkExperienceUpdate />}
+            {workExperienceState == 2 && <CvWorkExperienceAdd />}
             <br />
             <br />
-            {(cvTechnologyId) > 0 ? <CvTechnologyUpdate />
-                : <CvTechnologyList />}
+            {cvTechnologyState == null && <CvTechnologyList />}
+            {cvTechnologyState == 1 && <CvTechnologyUpdate />}
+            {cvTechnologyState == 2 && <CvTechnologyAdd />}
             <br />
             <br />
-            {(cvForeignLanguageId) > 0 ? <CvForeignLanguageUpdate />
-                : <CvForeignLanguageList />}
+            {cvForeignLanguageState == null && <CvForeignLanguageList />}
+            {cvForeignLanguageState == 1 && <CvForeignLanguageUpdate />}
+            {cvForeignLanguageState == 2 && <CvForeignLanguageAdd />}
             <br />
             <br />
-            {(cvSocialMediaId) > 0 ? <CvSocialMediaUpdate />
-                : <CvSocialMediaList />}
+            {cvSocialMediaState == null && <CvSocialMediaList />}
+            {cvSocialMediaState == 1 && <CvSocialMediaUpdate />}
+            {cvSocialMediaState == 2 && <CvSocialMediaAdd />}
             <br />
             <br />
         </div>

@@ -1,24 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import EducationInformationService from '../../services/EducationInformationService'
-import { Segment, Image, Dropdown, Input, Form, Button, Grid, Radio } from 'semantic-ui-react'
-import { useParams } from 'react-router'
-import '../../../css/CvList.css'
 import { useFormik } from 'formik'
-import * as Yup from "yup";
-import UniversityService from '../../services/UniversityService'
-import UniversityDepartmentService from '../../services/UniversityDepartmentService'
-import moment from 'moment'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Button, Dropdown, Form, Grid, Image, Input, Segment } from 'semantic-ui-react'
+import getEducationInformationState from '../../../store/actions/CvEducationInformationActions'
+import EducationInformationService from '../../services/EducationInformationService'
+import UniversityDepartmentService from '../../services/UniversityDepartmentService'
+import UniversityService from '../../services/UniversityService'
+import * as Yup from "yup";
 import { getEducationInformation } from '../../../store/actions/EducationInformationActions'
 import { toast } from 'react-toastify'
-import getEducationInformationState from '../../../store/actions/CvEducationInformationActions'
+import { useParams } from 'react-router'
 
-export default function CvEducationInformationListUpdate({ notUpdated }) {
+export default function CvEducationInformationAdd() {
 
     const dispatch = useDispatch()
     let { cvId } = useParams()
-    let [dateState, setDateState] = useState([])
-
 
     const educationInformations = useSelector(state => state.educationInformation)
 
@@ -50,17 +46,15 @@ export default function CvEducationInformationListUpdate({ notUpdated }) {
         text: departments.universityDepartmentName,
         value: departments.universityDepartmentId,
     }));
-    const formatDate = (date) => {
-        return moment((date)).format('YYYY-MM-DD')
-    }
+
     const formik = useFormik({
         initialValues: {
-            universityId: educationInformations.universityId,
-            universityDepartmentId: educationInformations.departmentId,
-            startingDate: formatDate(educationInformations.startingDate),
-            graduationDate: educationInformations.graduationDate,
+            universityId: "",
+            universityDepartmentId: "",
+            startingDate: "",
+            graduationDate: "",
             cvId: cvId,
-            educationInformationId: educationInformations.educationId
+            educationInformationId: ""
         },
         validationSchema: Yup.object({
             universityId: Yup.number().required("Üniversite bilgisi seçiniz!"),
@@ -79,14 +73,13 @@ export default function CvEducationInformationListUpdate({ notUpdated }) {
             };
             console.log(educationInformation);
             educationInformationService.add(educationInformation).then((result) => console.log(result.data.message));
-            toast.success(`Eğitim Bilgisi Başarıyla Güncellendi.`)
+            toast.success(`Eğitim Bilgisi Başarıyla Eklendi.`)
         },
     });
-    //educationInformations.graduationDate == "Devam Ediyor" ? dateState.value = '1' : dateState.value = '2' //default radio 
     return (
         <div>
             <Segment.Group piled>
-                <Segment inverted color="black" style={{ textAlign: "left" }}><h3 className="headerThree">Eğitim Bilgileri </h3></Segment>
+                <Segment inverted color="black" style={{ textAlign: "left" }}><h3 className="headerThree">Eğitim Bilgisi Ekle </h3></Segment>
                 <Segment>
                     <Form onSubmit={formik.handleSubmit}>
                         <Grid style={{ fontSize: "15px", fontFamily: "Arial" }}>
@@ -142,39 +135,18 @@ export default function CvEducationInformationListUpdate({ notUpdated }) {
                                             <p>Başlangıç Tarihi:</p>
                                         </Grid.Column>
                                         <Grid.Column width={11} style={{ textAlign: "left" }}>
-                                            <Input id="startingDate" type="date" defaultValue={formik.values.startingDate} value={formik.values.startingDate} onChange={formik.handleChange} fluid></Input>
+                                            <Input id="startingDate" type="date" value={formik.values.startingDate} onChange={formik.handleChange} fluid></Input>
                                             {formik.errors.startingDate && formik.touched.startingDate && (
                                                 <p style={{ color: "red" }}>{formik.errors.startingDate}</p>
                                             )} </Grid.Column>
                                     </Grid.Row>
                                     <Grid.Row>
-                                        <Grid.Column width={5} style={{ textAlign: "right", fontWeight: "bold", marginTop: "6%" }}>
+                                        <Grid.Column width={5} style={{ textAlign: "right", fontWeight: "bold", marginTop: "2%" }}>
                                             <p>Mezuniyet Tarihi:</p>
 
                                         </Grid.Column>
                                         <Grid.Column width={11} style={{ textAlign: "left" }}>
-                                            <Radio
-                                                label='Devam Ediyor'
-                                                name='radioGroup'
-                                                value='1'
-                                                checked={dateState.value === '1'}
-                                                onChange={(e, { value }) => setDateState({ value })}
-                                                style={{ marginBottom: "1%" }}
-                                            />
-                                            <Radio
-                                                label='Mezun'
-                                                name='radioGroup'
-                                                value='2'
-                                                checked={dateState.value === '2'}
-                                                onChange={(e, { value }) => setDateState({ value })}
-                                                style={{ marginBottom: "1%", marginLeft: "4%" }}
-                                            />
-                                            {dateState.value == '2' &&
-                                                <Input id="graduationDate" type="date" value={formik.values.graduationDate} onChange={formik.handleChange} fluid></Input>
-                                            }
-                                            {dateState.value == '1' &&
-                                                <Input id="graduationDate" value="Devam Ediyor" fluid disabled></Input>
-                                            }
+                                            <Input id="graduationDate" type="date" value={formik.values.graduationDate} onChange={formik.handleChange} fluid></Input>
                                             {formik.errors.graduationDate && formik.touched.graduationDate && (
                                                 <p style={{ color: "red" }}>{formik.errors.graduationDate}</p>
                                             )}
@@ -196,6 +168,7 @@ export default function CvEducationInformationListUpdate({ notUpdated }) {
                     </Form>
                 </Segment>
             </Segment.Group>
-        </div>
+
+        </div >
     )
 }

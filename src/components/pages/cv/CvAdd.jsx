@@ -9,21 +9,24 @@ import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { toast } from 'react-toastify';
 
+
+//kullanılmıyor
 export default function CvListUpdate() {
 
-    let { cvId } = useParams()
+    let { userId } = useParams()
+
     let cvService = new CvService()
     const [cvs, setCvs] = useState([]);
 
     useEffect(() => {
-        cvService.getCvsByCvId(cvId).then(result => setCvs(result.data.data))
+        cvService.addCv(userId).then(result => setCvs(result.data.data))
     }, [])
 
     const formik = useFormik({
         initialValues: {
-            cvId: cvId,
+            cvId: "",
             objective: "",
-            userId: 10,
+            userId: userId,
             creationDate: moment().format("YYYY-MM-DD")//veritabanında default değer-> CURRENT_TIMESTAMP
         },
         validationSchema: Yup.object({
@@ -40,15 +43,7 @@ export default function CvListUpdate() {
             };
             console.log(cv);
             cvService.addCv(cv).then((result) => console.log(result.data.message));
-            toast.success('Ön Söz Başarıyla Güncellendi.', {
-                position: "bottom-left",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                });
+            toast.success('Özgeçmiş Eklendi.')
         },
     });
 

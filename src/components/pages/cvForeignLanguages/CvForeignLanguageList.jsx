@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import CvForeignLanguageService from '../../services/CvForeignLanguageService'
-import { Table, Segment, Image, Button, Grid } from 'semantic-ui-react'
+import { Segment, Image, Button, Grid, Icon } from 'semantic-ui-react'
 import { useParams } from 'react-router';
 import '../../../css/CvList.css'
 import { useDispatch } from 'react-redux';
-import getCvForeignLanguage from '../../../store/actions/CvForeignLanguageActions';
+import getCvForeignLanguage, { getCvForeignLanguageState } from '../../../store/actions/CvForeignLanguageActions';
 
 export default function CvForeignLanguageList() {
 
@@ -21,16 +21,32 @@ export default function CvForeignLanguageList() {
     const handleGetForeignLanguage = (cvForeignLanguage) => {
         dispatch(getCvForeignLanguage(cvForeignLanguage));
     }
+    const handleGetForeignLanguageState = (state) => {
+        let newState ={state}
+        dispatch(getCvForeignLanguageState(newState));
+    }
 
     return (
         <div>
             <Segment.Group piled>
-                <Segment inverted color="black" style={{ textAlign: "left" }}><h3 className="headerThree">Yabancı Diller </h3></Segment>
+                <Segment inverted color="black" style={{ textAlign: "left" }}>
+                    <Grid>
+                        <Grid.Row>
+                            <Grid.Column width={10} style={{ textAlign: "left", marginTop: "1%", fontFamily: "Arial" }}>
+                                <h3 className="headerThree">Yabancı Diller </h3>
+                            </Grid.Column>
+                            <Grid.Column width={6} style={{ textAlign: "right" }}>
+                                <Button onClick={() => handleGetForeignLanguageState(2)} style={{ fontFamily: "Arial" }} fluid>
+                                    <Icon name="plus"></Icon> Yeni Yabancı Dil Ekle</Button>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </Segment>
                 {
                     cvForeignLanguages.map(cvForeignLanguage => (
                         <Segment>
-                            <Grid style={{ fontSize: "15px" }}>
-                                <Grid.Column width={2} style={{ marginLeft: "4%", marginTop: "4%" }}>
+                            <Grid style={{ fontSize: "15px", fontFamily: "Arial" }}>
+                                <Grid.Column width={2} style={{ marginLeft: "4%", marginTop: "3%" }}>
                                     <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623783705/translate_zboywx.png' size='mini' />
                                 </Grid.Column>
                                 <Grid.Column width={11} >
@@ -54,11 +70,10 @@ export default function CvForeignLanguageList() {
                                     </Grid>
                                 </Grid.Column>
                                 <Grid.Column width={2} style={{ marginTop: "3%" }}>
-                                    <Button onClick={() => handleGetForeignLanguage(cvForeignLanguage)}
+                                    <Button onClick={() => {handleGetForeignLanguage(cvForeignLanguage); handleGetForeignLanguageState(1)}}
                                         style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>Güncelle</Button>
                                 </Grid.Column>
                             </Grid>
-
                         </Segment>
                     ))}
             </Segment.Group>

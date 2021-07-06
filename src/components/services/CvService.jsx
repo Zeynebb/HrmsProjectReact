@@ -17,4 +17,8 @@ export default class CvService {
         return axios.get("/api/cv/getByCvIdForJobSeeker_UserId?userId=" + jobSeekerId)
     }
 
+    updateCreationDate(cvId){
+        return axios.post("/api/cv/updateCvSetCreationDate?cvId="+cvId)
+    }
+
 }

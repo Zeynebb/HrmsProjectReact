@@ -9,7 +9,7 @@ import moment from 'moment'
 export default function JobAdvertisementDetailForEmployer() {
 
     let { jobAdvertisementId } = useParams()
-    let { employerId } = useParams()
+    let { userId } = useParams()
 
     const [jobAdvertisement, setJobAdvertisement] = useState({})
     let jobAdvertisementService = new JobAdvertisementService()
@@ -18,15 +18,15 @@ export default function JobAdvertisementDetailForEmployer() {
         jobAdvertisementService.getJobAdvertisementByJobAdvertisementId(jobAdvertisementId).then(result => setJobAdvertisement(result.data.data))
     }, [])
 
-    function setStatus(employerId, jobAdvertisementId, status) {
-        jobAdvertisementService.closeTheJobAdvertisement(employerId, jobAdvertisementId, status).then(result => console.log(result.data.message))
+    function setStatus(userId, jobAdvertisementId, status) {
+        jobAdvertisementService.closeTheJobAdvertisement(userId, jobAdvertisementId, status).then(result => console.log(result.data.message))
         {
-            status ==true &&  toast.success(`İş İlanı Aktif Hale Getirildi.`)
+            status == true && toast.success(`İş İlanı Aktif Hale Getirildi.`)
         }
         {
-            status ==false &&  toast.success(`İş İlanı Pasif Hale Getirildi.`)
+            status == false && toast.success(`İş İlanı Pasif Hale Getirildi.`)
         }
-       
+
     }
     return (
         <div>
@@ -147,12 +147,12 @@ export default function JobAdvertisementDetailForEmployer() {
                         <td>
                             {
                                 jobAdvertisement.advertisementStatus == true &&
-                                <Button onClick={() => setStatus(7, jobAdvertisementId, false)} style={{ backgroundColor: "#505050", color: "white", marginBottom: "0.001em" }}>
+                                <Button onClick={() => setStatus(userId, jobAdvertisementId, false)} style={{ backgroundColor: "#505050", color: "white", marginBottom: "0.001em" }}>
                                     İlanı Pasif Hale Getir</Button>
                             }
                             {
                                 jobAdvertisement.advertisementStatus == false &&
-                                <Button onClick={() => setStatus(7, jobAdvertisementId, true)} style={{ backgroundColor: "#780000", color: "white", marginBottom: "0.001em" }}>
+                                <Button onClick={() => setStatus(userId, jobAdvertisementId, true)} style={{ backgroundColor: "#780000", color: "white", marginBottom: "0.001em" }}>
                                     İlanı Aktif Hale Getir</Button>
                             }
                         </td>
@@ -163,5 +163,5 @@ export default function JobAdvertisementDetailForEmployer() {
 
             </Segment.Group>
         </div>
-    )//button kısımlarına employerId 
+    )
 }

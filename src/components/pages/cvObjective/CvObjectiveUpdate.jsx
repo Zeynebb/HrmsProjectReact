@@ -48,7 +48,7 @@ export default function CvObjectiveUpdate() {
         <div>
             <div>
                 <Segment.Group piled>
-                    <Segment inverted style={{ textAlign: "left" }}><h3 className="headerThree" >Ön Söz </h3></Segment>
+                    <Segment inverted style={{ textAlign: "left" , fontFamily:"Arial" }}><h3 className="headerThree" >Ön Söz </h3></Segment>
                     <Form onSubmit={formik.handleSubmit}>
                         <Table className="cvTable">
                             <td >

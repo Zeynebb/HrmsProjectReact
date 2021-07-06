@@ -26,10 +26,10 @@ export default function Navi() {
             <Menu inverted fixed='top' className="naviMenu">
                 <Container>
                     <Menu.Item>
-                        <Link style={{marginLeft: "3em", marginTop: "0.3em", color: "white", position: "left", fontSize:"20px" }} to="/">Anasayfa</Link>
+                        <Link style={{ marginLeft: "3em", marginTop: "0.3em", color: "white", position: "left", fontSize: "20px", fontFamily: "Arial" }} to="/">Anasayfa</Link>
                     </Menu.Item>
                     <Menu.Item>
-                        <Link style={{marginLeft: "1em", marginTop: "0.3em", color: "white", position: "left", fontSize:"18px" }} to="/10/jobAdvertisement">İş İlanları</Link>
+                        <Link style={{ marginLeft: "1em", marginTop: "0.3em", color: "white", position: "left", fontSize: "18px", fontFamily: "Arial" }} to="/10/jobAdvertisement">İş İlanları</Link>
                     </Menu.Item>
                     <Menu.Menu position='right'>
                         {isAuthenticated ?

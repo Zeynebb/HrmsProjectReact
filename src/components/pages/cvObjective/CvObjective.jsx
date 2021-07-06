@@ -28,19 +28,29 @@ export default function CvObjective() {
                 {
                     cvs.map(cv => (
                         <Segment>
-                            <Grid style={{ fontSize: "15px" }}>
+
+                            <Grid style={{ fontSize: "15px", fontFamily: "Arial" }}>
                                 <Grid.Column width={1} style={{ marginLeft: "4%" }}>
                                     <p style={{ fontSize: "25px" }}>&#9733;</p>
                                 </Grid.Column>
-                                <Grid.Column width={11} style={{ textAlign: "left", marginTop: "1%" }}>
-                                    <p>{cv.objective}</p>
+                                <Grid.Column width={11} style={{ textAlign: "left", marginTop: "1%",minHeight:70 }}>
+                                    {cv.objective != null &&
+                                        <p>{cv.objective}</p>
+                                    }
+                                    {cv.objective == null &&
+                                        <p style={{color:"grey"}}>İş verenlerin sizi daha iyi tanıyabilmesi için ön söz ekleyebilirsiniz...</p>
+                                    }
+
                                 </Grid.Column>
-                                <Grid.Column width={3} style={{ marginTop: "1%" }}>
-                                    <Button onClick={() => handleGetCvId(cv)}
-                                        style={{ float: "right", backgroundColor: "black", color: "white", }}>Güncelle</Button>
+                                <Grid.Column width={3}>
+                                    {cv.objective != null &&
+                                        <Button onClick={() => handleGetCvId(cv)}
+                                            style={{ float: "right", backgroundColor: "black", color: "white", }}>Güncelle</Button>}
+                                    {cv.objective == null &&
+                                        <Button onClick={() => handleGetCvId(cv)}
+                                            style={{ float: "right", backgroundColor: "black", color: "white", }}>Ekle</Button>}
                                 </Grid.Column>
                             </Grid>
-
                         </Segment>
                     ))}
             </Segment.Group>

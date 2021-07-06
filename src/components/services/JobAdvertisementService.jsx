@@ -39,5 +39,9 @@ export default class JobAdvertisementService {
     changeApprovalStatusForJobAdvertisementId(jobAdvertisementID, status){
         return axios.post("/api/jobAdvertisement/updateJobAdvertisementSetApprovalStatus?jobAdvertisementId="+jobAdvertisementID+"&status="+status)
     }
+
+    getByAdvertisementStatusAndApprovalStatus(){
+        return axios.get("/api/jobAdvertisement/getByAdvertisementStatusAndApprovalStatus")
+    }
     
 }

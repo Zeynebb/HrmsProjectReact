@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Dropdown, Form, Image, Segment, Table } from 'semantic-ui-react'
+import { Button, Dropdown, Grid, Image, Segment } from 'semantic-ui-react'
 import TechnologyService from '../../services/TechnologyService'
-import getCvTechnology from "../../../store/actions/CvTechnologyActions"
+import getCvTechnology from '../../../store/actions/CvTechnologyActions';
+import getCvTechnologyState from '../../../store/actions/CvTechnologyStateActions';
 import { useParams } from 'react-router'
 import * as Yup from "yup";
 import CvTechnologyService from '../../services/CvTechnologyService'
@@ -34,6 +35,9 @@ export default function CvTechnologyUpdate() {
     const handleGetTechnology = () => {
         dispatch(getCvTechnology(0));
     }
+    const handleGetTechnologyState = (state) => {
+        dispatch(getCvTechnologyState(state));
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -61,51 +65,47 @@ export default function CvTechnologyUpdate() {
         <div>
             <Segment.Group piled>
                 <Segment inverted color="black" style={{ textAlign: "left" }}><h3 className="headerThree">Yetenekler </h3></Segment>
-                <Form onSubmit={formik.handleSubmit} validationSchema={formik.validationSchema}>
-                    <Table className="cvTable">
-                        <td width="5%">
-                            <tr>
+                <Segment>
+                    <Grid style={{ fontSize: "15px", fontFamily: "Arial" }}>
+                        <Grid.Row>
+                            <Grid.Column width={2} style={{ marginLeft: "4%", marginTop: "1%" }}>
                                 <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623788178/technologyIcon_kqtmh7.png' size='mini' />
-                            </tr>
-                            <tr>
-
-                            </tr>
-                        </td>
-                        <td width="95%">
-                            <tr>
-                                <td className="leftTd" >
-                                    <p>Teknoloji Adı:</p>
-                                </td>
-                                <td className="rightTd" >
-                                    <Dropdown
-                                        button
-                                        fluid
-                                        search
-                                        selection
-                                        id="technologyId"
-                                        options={getTechnologies}
-                                        onChange={(event, data) =>
-                                            formik.setFieldValue("technologyId", data.value)
-                                        }
-                                        value={formik.values.technologyId}
-                                    />
-                                    {formik.errors.technologyId && formik.touched.technologyId && (
-                                        <p style={{ color: "red" }}>{formik.errors.technologyId}</p>
-                                    )}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className="leftTd" >
-                                </td>
-                                <td className="rightTd">
-                                    <Button type="submit" style={{ float: "right", backgroundColor: "#780000", color: "white", marginLeft: "1em" }}>KAYDET</Button>
-                                    <Button type="button" onClick={() => handleGetTechnology()}
-                                        style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>GERİ DÖN</Button>
-                                </td>
-                            </tr>
-                        </td>
-                    </Table>
-                </Form>
+                            </Grid.Column>
+                            <Grid.Column width={12}>
+                                <Grid>
+                                    <Grid.Column width={4} style={{ textAlign: "right", marginTop: "3%", fontWeight: "bold" }}>
+                                        <p>Teknoloji Adı: </p>
+                                    </Grid.Column>
+                                    <Grid.Column width={12} style={{ textAlign: "left", marginTop: "1%" }}>
+                                        <Dropdown
+                                            button
+                                            fluid
+                                            search
+                                            selection
+                                            id="technologyId"
+                                            options={getTechnologies}
+                                            onChange={(event, data) =>
+                                                formik.setFieldValue("technologyId", data.value)
+                                            }
+                                            value={formik.values.technologyId}
+                                        />
+                                        {formik.errors.technologyId && formik.touched.technologyId && (
+                                            <p style={{ color: "red" }}>{formik.errors.technologyId}</p>
+                                        )}
+                                    </Grid.Column>
+                                    <Grid.Row>
+                                        <Grid.Column width={5}></Grid.Column>
+                                        <Grid.Column width={11}>
+                                            <Button type="submit" style={{ float: "right", backgroundColor: "#780000", color: "white", marginLeft: "1em" }}>KAYDET</Button>
+                                            <Button type="button" onClick={() => { handleGetTechnology(); handleGetTechnologyState(0) }}
+                                                style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>GERİ DÖN</Button>
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </Segment>
             </Segment.Group>
         </div>
     )

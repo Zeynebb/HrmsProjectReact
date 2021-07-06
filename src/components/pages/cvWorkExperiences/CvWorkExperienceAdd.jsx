@@ -1,21 +1,20 @@
-import { useFormik } from 'formik';
+import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { Dropdown, Image, Input, Segment, Button, Grid, Radio, Form } from 'semantic-ui-react'
-import { getWorkExperience } from '../../../store/actions/WorkExperienceActions';
-import WorkExperienceService from '../../services/WorkExperienceService';
-import JobPositionService from '../../services/JobPositionService';
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router'
+import { Button, Dropdown, Form, Grid, Image, Input, Segment } from 'semantic-ui-react'
+import { getWorkExperience } from '../../../store/actions/WorkExperienceActions'
+import JobPositionService from '../../services/JobPositionService'
+import WorkExperienceService from '../../services/WorkExperienceService'
 import * as Yup from "yup";
-import moment from 'moment';
-import { useParams } from 'react-router';
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
+import { useFormik } from 'formik'
 import getCvWorkExperienceState from '../../../store/actions/CvWorkExperienceActions';
 
-export default function CvWorkExperienceUpdate() {
+export default function CvWorkExperienceAdd() {
 
     let { cvId } = useParams()
     const dispatch = useDispatch()
-    let [dateState, setDateState] = useState([])
 
     const workExperiences = useSelector(state => state.workExperience)
 
@@ -47,11 +46,11 @@ export default function CvWorkExperienceUpdate() {
     const formik = useFormik({
         initialValues: {
             cvId: cvId,
-            positionId: workExperiences.jobPositionId,
-            startingDate: formatDate(workExperiences.startingDate),
-            endingdate: workExperiences.endingdate,
-            workExperienceId: workExperiences.workExperienceId,
-            workplaceName: workExperiences.workplaceName
+            positionId: "",
+            startingDate: "",
+            endingdate: "",
+            workExperienceId: "",
+            workplaceName: ""
         },
         validationSchema: Yup.object({
             positionId: Yup.number().required("İş pozisyonu boş bırakılamaz!"),
@@ -70,10 +69,9 @@ export default function CvWorkExperienceUpdate() {
             };
             console.log(workExperience);
             workExperienceService.add(workExperience).then((result) => console.log(result.data.message));
-            toast.success(`İş Deneyimi Başarıyla Güncellendi.`)
+            toast.success(`İş Deneyimi Başarıyla Eklendi.`)
         },
     });
-   // workExperiences.endingdate == null ? dateState.value = '1' : dateState.value = '2' //default radio 
     return (
         <div>
             <Segment.Group piled>
@@ -124,38 +122,18 @@ export default function CvWorkExperienceUpdate() {
                                             <p>Başlangıç Tarihi:</p>
                                         </Grid.Column>
                                         <Grid.Column width={11} style={{ textAlign: "left" }}>
-                                            <Input id="startingDate" type="date" defaultValue={formik.values.startingDate} value={formik.values.startingDate} onChange={formik.handleChange} fluid></Input>
+                                            <Input id="startingDate" value={formik.values.startingDate} onChange={formik.handleChange} fluid></Input>
                                             {formik.errors.startingDate && formik.touched.startingDate && (
                                                 <p style={{ color: "red" }}>{formik.errors.startingDate}</p>
                                             )}</Grid.Column>
                                     </Grid.Row>
                                     <Grid.Row>
-                                        <Grid.Column width={5} style={{ textAlign: "right", fontWeight: "bold", marginTop: "6%" }}>
+                                        <Grid.Column width={5} style={{ textAlign: "right", fontWeight: "bold", marginTop: "2%" }}>
                                             <p>Bitiş Tarihi:</p>
+
                                         </Grid.Column>
                                         <Grid.Column width={11} style={{ textAlign: "left" }}>
-                                            <Radio
-                                                label='Devam Ediyor'
-                                                name='radioGroup'
-                                                value='1'
-                                                checked={dateState.value === '1'}
-                                                onChange={(e, { value }) => setDateState({ value })}
-                                                style={{ marginBottom: "1%" }}
-                                            />
-                                            <Radio
-                                                label='Bitti'
-                                                name='radioGroup'
-                                                value='2'
-                                                checked={dateState.value === '2'}
-                                                onChange={(e, { value }) => setDateState({ value })}
-                                                style={{ marginBottom: "1%", marginLeft: "4%" }}
-                                            />
-                                            {dateState.value == '2' &&
-                                                <Input id="endingdate" type="date" value={formatDate(formik.values.endingdate)} onChange={formik.handleChange} fluid></Input>
-                                            }
-                                            {dateState.value == '1' &&
-                                                <Input id="endingdate" value="Devam Ediyor" fluid disabled></Input>
-                                            }
+                                            <Input id="endingdate" value={formik.values.endingdate} onChange={formik.handleChange} fluid></Input>
                                             {formik.errors.endingdate && formik.touched.endingdate && (
                                                 <p style={{ color: "red" }}>{formik.errors.endingdate}</p>
                                             )}
@@ -176,6 +154,7 @@ export default function CvWorkExperienceUpdate() {
                     </Form>
                 </Segment>
             </Segment.Group>
+
         </div>
     )
 }

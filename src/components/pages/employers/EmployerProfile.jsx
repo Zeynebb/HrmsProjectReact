@@ -62,7 +62,6 @@ export default function EmployerDetail() {
                         <td className="rightTd" >
                             <p>{employer.phoneNumber}</p>
                         </td>
-
                     </tr>
                     <tr>
                         <td className="leftTd" >
@@ -70,14 +69,12 @@ export default function EmployerDetail() {
                         <td >
                             <Button onClick={() => handleGetEmployer(employer)}
                                 style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>Güncelle</Button>
-                            {employer.updateStatus == false && <p style={{ fontSize: "15px" }}>
-                                <Button style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }} disabled>
-                                    Onay Bekliyor</Button></p>}
-
+                            {employer.updateStatus == false && employer.update != null &&
+                                <p style={{ fontSize: "15px" }}>
+                                    <Button style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }} disabled>
+                                        Onay Bekliyor</Button></p>}
                         </td>
                     </tr>
-
-
                 </Table>
             </Segment.Group>
 

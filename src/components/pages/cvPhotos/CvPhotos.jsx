@@ -26,6 +26,8 @@ export default function CvPhotos() {
             }
             {photos == null && cv != null && <Image src={cv.photoUrl} size="small"></Image>
             }
+            {photos == null && cv == null && <Image src="https://res.cloudinary.com/zeydatabase/image/upload/v1623789117/profile_ybo1xx.png" size="small"></Image>
+            }
 
         </div>
     )
