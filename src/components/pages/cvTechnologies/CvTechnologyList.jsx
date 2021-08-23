@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import CvTechnologyService from '../../services/CvTechnologyService'
-import { Table, Segment, Image, Button, Grid, Icon } from 'semantic-ui-react'
+import { Segment, Image, Button, Grid, Icon } from 'semantic-ui-react'
 import { useParams } from 'react-router';
 import '../../../css/CvList.css'
 import getCvTechnology from '../../../store/actions/CvTechnologyActions';
 import getCvTechnologyState from '../../../store/actions/CvTechnologyStateActions';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 export default function CvTechnologyList() {
 
@@ -13,9 +14,8 @@ export default function CvTechnologyList() {
     let { cvId } = useParams()
 
     const [cvTechnologies, setCvTechnologies] = useState([]);
-
+    let cvTechnologyService = new CvTechnologyService()
     useEffect(() => {
-        let cvTechnologyService = new CvTechnologyService()
         cvTechnologyService.getCvTechnologiesByCvId(cvId).then(result => setCvTechnologies(result.data.data))
     }, [])
 
@@ -25,6 +25,10 @@ export default function CvTechnologyList() {
     const handleGetTechnologyState = (state) => {
         let newState = { state }
         dispatch(getCvTechnologyState(newState));
+    }
+    function deleteTechnologies(cvTechnologyId) {
+        cvTechnologyService.delete(cvTechnologyId).then(result => console.log(result.data.message))
+        toast.success("Yetenek Bilgisi Silindi.")
     }
 
     return (
@@ -53,12 +57,14 @@ export default function CvTechnologyList() {
                                 <Grid.Column width={3} style={{ textAlign: "right", marginTop: "1%", fontWeight: "bold" }}>
                                     <p>Teknoloji Adı: </p>
                                 </Grid.Column>
-                                <Grid.Column width={7} style={{ textAlign: "left", marginTop: "1%" }}>
+                                <Grid.Column width={4} style={{ textAlign: "left", marginTop: "1%" }}>
                                     <p> {cvTechnology.technologyname}</p>
                                 </Grid.Column>
-                                <Grid.Column width={3}>
+                                <Grid.Column width={6}>
                                     <Button onClick={() => { handleGetTechnology(cvTechnology); handleGetTechnologyState(1) }}
-                                        style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>Güncelle</Button>
+                                        style={{ float: "right", backgroundColor: "#780000", color: "white", marginLeft: "1em" }}>Güncelle</Button>
+                                    <Button onClick={() => deleteTechnologies(cvTechnology.cvTechnologyId)}
+                                        style={{ float: "right", backgroundColor: "#505050", color: "white", marginLeft: "1em" }}>Sil</Button>
                                 </Grid.Column>
                             </Grid>
 

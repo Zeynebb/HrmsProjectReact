@@ -9,6 +9,9 @@ export default class CvForeignLanguageService {
     add(cvForeignLanguage){
         return axios.post("/api/cvForeignLanguage/add", cvForeignLanguage)
     }
+    delete(cvForeignLanguageId){
+        return axios.post("/api/cvForeignLanguage/deleteCvForeignLanguage?foreignLanguageId="+cvForeignLanguageId)
+    }
     getCvForeignLanguagesByCvId(cvId) {
         return axios.get("/api/cvForeignLanguage/getCvForeignLanguageWithForeignLanguageDetails?cvId="+cvId)
     }

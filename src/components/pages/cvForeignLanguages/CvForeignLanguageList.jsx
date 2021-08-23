@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 import '../../../css/CvList.css'
 import { useDispatch } from 'react-redux';
 import getCvForeignLanguage, { getCvForeignLanguageState } from '../../../store/actions/CvForeignLanguageActions';
+import { toast } from 'react-toastify';
 
 export default function CvForeignLanguageList() {
 
@@ -12,9 +13,9 @@ export default function CvForeignLanguageList() {
     let { cvId } = useParams()
 
     const [cvForeignLanguages, setCvForeignLanguages] = useState([]);
+    let cvForeignLanguageService = new CvForeignLanguageService()
 
     useEffect(() => {
-        let cvForeignLanguageService = new CvForeignLanguageService()
         cvForeignLanguageService.getCvForeignLanguagesByCvId(cvId).then(result => setCvForeignLanguages(result.data.data))
     }, [])
 
@@ -22,8 +23,12 @@ export default function CvForeignLanguageList() {
         dispatch(getCvForeignLanguage(cvForeignLanguage));
     }
     const handleGetForeignLanguageState = (state) => {
-        let newState ={state}
+        let newState = { state }
         dispatch(getCvForeignLanguageState(newState));
+    }
+    function deleteCvForeignLanguage(cvForeignLanguageId) {
+        cvForeignLanguageService.delete(cvForeignLanguageId).then(result => console.log(result.data.message))
+        toast.success("Yabancı Dil Bilgisi Silindi")
     }
 
     return (
@@ -49,29 +54,31 @@ export default function CvForeignLanguageList() {
                                 <Grid.Column width={2} style={{ marginLeft: "4%", marginTop: "3%" }}>
                                     <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623783705/translate_zboywx.png' size='mini' />
                                 </Grid.Column>
-                                <Grid.Column width={11} >
+                                <Grid.Column width={8} >
                                     <Grid >
                                         <Grid.Row>
-                                            <Grid.Column width={5} style={{ textAlign: "right", marginTop: "1%", fontWeight: "bold" }}>
+                                            <Grid.Column width={7} style={{ textAlign: "right", marginTop: "1%", fontWeight: "bold" }}>
                                                 <p>Yabancı Dil Adı:</p>
                                             </Grid.Column>
-                                            <Grid.Column width={11} style={{ textAlign: "left", marginTop: "1%" }}>
+                                            <Grid.Column width={9} style={{ textAlign: "left", marginTop: "1%" }}>
                                                 <p>{cvForeignLanguage.foreignLanguageName}</p>
                                             </Grid.Column>
                                         </Grid.Row>
                                         <Grid.Row>
-                                            <Grid.Column width={5} style={{ textAlign: "right", fontWeight: "bold" }}>
+                                            <Grid.Column width={7} style={{ textAlign: "right", fontWeight: "bold" }}>
                                                 <p>Yabancı Dil Seviyesi:</p>
                                             </Grid.Column>
-                                            <Grid.Column width={11} style={{ textAlign: "left" }}>
+                                            <Grid.Column width={9} style={{ textAlign: "left" }}>
                                                 <p>{cvForeignLanguage.languageLevelName}</p>
                                             </Grid.Column>
                                         </Grid.Row>
                                     </Grid>
                                 </Grid.Column>
-                                <Grid.Column width={2} style={{ marginTop: "3%" }}>
-                                    <Button onClick={() => {handleGetForeignLanguage(cvForeignLanguage); handleGetForeignLanguageState(1)}}
-                                        style={{ float: "right", backgroundColor: "black", color: "white", marginLeft: "1em" }}>Güncelle</Button>
+                                <Grid.Column width={5} style={{ marginTop: "3%" }}>
+                                    <Button onClick={() => { handleGetForeignLanguage(cvForeignLanguage); handleGetForeignLanguageState(1) }}
+                                        style={{ float: "right", backgroundColor: "#780000", color: "white", marginLeft: "1em" }}>Güncelle</Button>
+                                    <Button onClick={() => deleteCvForeignLanguage(cvForeignLanguage.cvForeignLanguageId)}
+                                        style={{ float: "right", backgroundColor: "#505050", color: "white", marginLeft: "1em" }}>Sil</Button>
                                 </Grid.Column>
                             </Grid>
                         </Segment>

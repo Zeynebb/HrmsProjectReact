@@ -1,6 +1,6 @@
 import { useFormik } from 'formik'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 import { toast } from 'react-toastify'
 import * as Yup from "yup";
@@ -13,8 +13,6 @@ import TechnologyService from '../../services/TechnologyService'
 export default function CvTechnologyAdd() {
     let { cvId } = useParams()
     const dispatch = useDispatch()
-
-    let cvTechnologies = useSelector(state => state.cvTechnology)
 
     let [technologies, setTechnologies] = useState([])
 
@@ -56,7 +54,7 @@ export default function CvTechnologyAdd() {
             };
             console.log(cvTechnology);
             cvTechnologyService.add(cvTechnology).then((result) => console.log(result.data.message));
-            toast.success(`Teknoloji Bilgisi Başarıyla Güncellendi.`)
+            toast.success(`Teknoloji Bilgisi Başarıyla Eklendi.`)
         },
     });
 

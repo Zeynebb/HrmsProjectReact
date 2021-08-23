@@ -12,6 +12,10 @@ export default class EducationInformationService {
         return axios.get("/api/educationInformation/getEducationInformationDetails?educationId="+educationId)        
     }
 
+    delete(educationId){
+        return axios.post("/api/educationInformation/deleteEducation?educationId="+educationId)
+    }
+
     add(educationInformation){
         return axios.post("/api/educationInformation/add", educationInformation)
     }

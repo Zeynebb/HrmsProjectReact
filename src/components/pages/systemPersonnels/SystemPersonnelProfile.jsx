@@ -10,7 +10,6 @@ export default function SystemPersonnelProfile() {
 
     const dispatch = useDispatch()
     let { userId } = useParams()
-    let { cvId } = useParams()
 
     const [personnel, setPersonnel] = useState({})
 

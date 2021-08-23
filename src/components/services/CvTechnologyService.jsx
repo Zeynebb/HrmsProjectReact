@@ -9,6 +9,11 @@ export default class CvTechnologyService {
     add(cvTechnology){
         return axios.post("/api/cvTechnology/add",cvTechnology)
     }
+
+    delete(cvTechnologyId){
+        return axios.post("/api/cvTechnology/deleteCvTechnology?cvTechnologiesId="+cvTechnologyId)
+    }
+
     getCvTechnologiesByCvId(cvId) {
         return axios.get("/api/cvTechnology/getCvTechnologyWithTechnologydetails?cvId="+cvId)
 

@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
-import { Button, Segment, Input, Dropdown, Form, TextArea } from 'semantic-ui-react'
+import { Button, Segment, Input, Dropdown, Form, TextArea, Label } from 'semantic-ui-react'
 import CityService from '../../services/CityService';
 import JobAdvertisementService from '../../services/JobAdvertisementService';
 import JobPositionService from '../../services/JobPositionService';
@@ -91,8 +91,10 @@ export default function JobAdvertisementAdd() {
                 releaseDate: values.releaseDate
             };
             console.log(jobAdvertisement);
-            jobAdvertisementService.addJobAdvertisement(jobAdvertisement).then((result) => console.log(result.data.message));
-            toast.success(`İş İlanı Eklendi.`)
+            jobAdvertisementService.addJobAdvertisement(jobAdvertisement).then((result) => result.data.success ? toast.success(`İş İlanı Eklendi.`)
+            && formik.resetForm()//formu sıfırlamak için 
+            : toast.error("İş İlanı Eklenemedi!"));
+            
         },
     });
 
@@ -105,7 +107,7 @@ export default function JobAdvertisementAdd() {
                         <div style={{ textAlign: "left", fontFamily: "Arial", fontWeight: "bold", padding: "3px" }} >
                             <div className="divStyle" >
                                 <label>Şehir:</label>
-                                <Dropdown style={{ marginRight: "1em", marginTop: "1em", fontWeight: "lighter" }}
+                                <Dropdown style={{ fontFamily: "Arial", marginTop: "1em", fontWeight: "lighter" }}
                                     button
                                     placeholder='Şehir Seçiniz...'
                                     fluid
@@ -119,12 +121,12 @@ export default function JobAdvertisementAdd() {
                                     value={formik.values.cityId}
                                 />
                                 {formik.errors.cityId && formik.touched.cityId && (
-                                    <p style={{ color: "red" }}>{formik.errors.cityId}</p>
+                                    <Label basic color="red" pointing>{formik.errors.cityId}</Label>
                                 )}
                             </div>
                             <div className="divStyle">
                                 <label>İş Pozisyonu:</label>
-                                <Dropdown style={{ marginRight: "1em", marginTop: "1em", fontWeight: "lighter" }}
+                                <Dropdown className="divDropdown"
                                     button
                                     placeholder='İş Pozisyonu Seçiniz...'
                                     fluid
@@ -138,12 +140,12 @@ export default function JobAdvertisementAdd() {
                                     value={formik.values.positionId}
                                 />
                                 {formik.errors.positionId && formik.touched.positionId && (
-                                    <p style={{ color: "red" }}>{formik.errors.positionId}</p>
+                                    <Label basic color="red" pointing>{formik.errors.positionId}</Label>
                                 )}
                             </div>
                             <div className="divStyle">
                                 <label>Çalışma Tipi:</label>
-                                <Dropdown style={{ marginRight: "1em", marginTop: "1em", fontWeight: "lighter" }}
+                                <Dropdown style={{ fontFamily: "Arial", marginTop: "1em", fontWeight: "lighter" }}
                                     button
                                     placeholder='Çalışma Tipini Seçiniz...'
                                     fluid
@@ -158,12 +160,12 @@ export default function JobAdvertisementAdd() {
                                     required
                                 />
                                 {formik.errors.workTypeId && formik.touched.workTypeId && (
-                                    <p style={{ color: "red" }}>{formik.errors.workTypeId}</p>
+                                    <Label basic color="red" pointing>{formik.errors.workTypeId}</Label>
                                 )}
                             </div>
                             <div className="divStyle">
                                 <label>Çalışma Zamanı Tipi:</label>
-                                <Dropdown style={{ marginRight: "1em", marginTop: "1em", fontWeight: "lighter" }}
+                                <Dropdown style={{ fontFamily: "Arial", marginTop: "1em", fontWeight: "lighter" }}
                                     button
                                     placeholder='Çalışma Zamanı Tipini Seçiniz...'
                                     fluid
@@ -177,46 +179,51 @@ export default function JobAdvertisementAdd() {
                                     value={formik.values.workTimeTypeId}
                                 />
                                 {formik.errors.workTimeTypeId && formik.touched.workTimeTypeId && (
-                                    <p style={{ color: "red" }}>{formik.errors.workTimeTypeId}</p>
+                                    <Label basic color="red" pointing>{formik.errors.workTimeTypeId}</Label>
                                 )}
                             </div>
                             <div className="divStyle">
                                 <label>Minimum Maaş:</label>
-                                <Input id="minSalary" placeholder="Minimum Maaş..." fluid style={{ marginRight: "1em", marginTop: "1em" }} onChange={formik.handleChange} value={formik.values.minSalary}></Input>
+                                <Input id="minSalary" placeholder="Minimum Maaş..." fluid
+                                    onChange={formik.handleChange} value={formik.values.minSalary}></Input>
                                 {formik.errors.minSalary && formik.touched.minSalary && (
-                                    <p style={{ color: "red" }}>{formik.errors.minSalary}</p>
+                                    <Label basic color="red" pointing>{formik.errors.minSalary}</Label>
                                 )}
                             </div>
                             <div className="divStyle">
                                 <label>Maksimum Maaş:</label>
-                                <Input id="maxSalary" placeholder="Maksimum Maaş..." fluid style={{ marginRight: "1em", marginTop: "1em" }} onChange={formik.handleChange} value={formik.values.maxSalary}></Input>
+                                <Input id="maxSalary" placeholder="Maksimum Maaş..." fluid
+                                    onChange={formik.handleChange} value={formik.values.maxSalary}></Input>
                                 {formik.errors.maxSalary && formik.touched.maxSalary && (
-                                    <p style={{ color: "red" }}>{formik.errors.maxSalary}</p>
+                                    <Label basic color="red" pointing>{formik.errors.maxSalary}</Label>
                                 )}
                             </div>
                             <div className="divStyle">
                                 <label>Alınacak Personel Sayısı:</label>
-                                <Input id="positionAmount" placeholder="Alınacak Personel Sayısı..." fluid style={{ marginRight: "1em", marginTop: "1em" }} onChange={formik.handleChange} value={formik.values.positionAmount}></Input>
+                                <Input id="positionAmount" placeholder="Alınacak Personel Sayısı..." fluid
+                                    onChange={formik.handleChange} value={formik.values.positionAmount}></Input>
                                 {formik.errors.positionAmount && formik.touched.positionAmount && (
-                                    <p style={{ color: "red" }}>{formik.errors.positionAmount}</p>
+                                    <Label basic color="red" pointing>{formik.errors.positionAmount}</Label>
                                 )}
                             </div>
                             <div className="divStyle">
                                 <label>Son Başvuru Tarihi:</label>
-                                <Input type="date" id="applicationDeadline" placeholder="Son Başvuru Tarihi..." fluid style={{ marginRight: "1em", marginTop: "1em" }} onChange={formik.handleChange} value={formik.values.applicationDeadline}></Input>
+                                <Input type="date" id="applicationDeadline" placeholder="Son Başvuru Tarihi..." fluid
+                                    onChange={formik.handleChange} value={formik.values.applicationDeadline}></Input>
                                 {formik.errors.applicationDeadline && formik.touched.applicationDeadline && (
-                                    <p style={{ color: "red" }}>{formik.errors.applicationDeadline}</p>
+                                    <Label basic color="red" pointing>{formik.errors.applicationDeadline}</Label>
                                 )}
                             </div>
                             <div className="divStyle">
                                 <label>Açıklama:</label>
-                                <TextArea id="jobDescription" placeholder="Açıklama..." style={{ marginRight: "1em", marginTop: "1em", minHeight: 100 }} onChange={formik.handleChange} value={formik.values.jobDescription}></TextArea>
+                                <TextArea id="jobDescription" placeholder="Açıklama..."
+                                    onChange={formik.handleChange} value={formik.values.jobDescription}></TextArea>
                                 {formik.errors.jobDescription && formik.touched.jobDescription && (
-                                    <p style={{ color: "red" }}>{formik.errors.jobDescription}</p>
+                                    <Label basic color="red" pointing>{formik.errors.jobDescription}</Label>
                                 )}
                             </div>
                         </div>
-                        <Button type="submit" style={{ backgroundColor: "#780000", color: "white", marginBottom: "0.001em" }} >EKLE</Button>
+                        <Button type="submit" id="addButton">EKLE</Button>
                     </Form>
                 </Segment>
             </Segment.Group>

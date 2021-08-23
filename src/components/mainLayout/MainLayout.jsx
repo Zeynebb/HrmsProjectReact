@@ -1,7 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router'
 import CvList from '../pages/cv/CvList'
-import JobAdvertisementList from '../pages/jobAdvertisement/JobAdvertisementList'
 import EmployerRegister from '../navi/register/EmployerRegister'
 import JobSeekerRegister from '../navi/register/JobSeekerRegister'
 import JobAdvertisementDetails from '../pages/jobAdvertisement/JobAdvertisementDetails'
@@ -26,11 +25,17 @@ import SystemPersonnelProfileUpdate from '../pages/systemPersonnels/SystemPerson
 import BaseProfilePage from '../pages/profile/BaseProfilePage'
 import UpdatedEmployerList from '../pages/systemPersonnels/UpdatedEmployerList'
 import UpdatedEmployerListApproval from '../pages/systemPersonnels/UpdatedEmployerListApproval'
+import FavoriteJobAdvertisementForJobSeeker from '../pages/jobAdvertisement/FavoriteJobAdvertisementForJobSeeker'
+import JobAdvertisementDetailsForAll from '../pages/jobAdvertisement/JobAdvertisementDetailsForAll'
+import AllJobAdvertisementList from '../pages/jobAdvertisement/AllJobAdvertisementList'
+import JobAdvertisementListForJobSeeker from '../pages/jobAdvertisement/JobAdvertisementListForJobSeeker'
+import JobAdvertisementList from '../pages/jobAdvertisement/JobAdvertisementList'
+import MainPage from '../pages/mainPage/MainPage'
+import '../../css/MainLayout.css'
 
 export default function MainLayout() {
     return (
-        <div >
-            <Route exact path="/:userId/jobAdvertisement" component={JobAdvertisementList} />
+        <div  >
             <Route exact path="/jobAdvertisementAdd" component={JobAdvertisementAdd} />
             <Route exact path="/:userId/jobAdvertisement/:jobAdvertisementId" component={JobAdvertisementDetails} />
             <Route exact path="/jobAdvertisementForEmployer/:userId" component={JobAdvertisementListForEmployer} />
@@ -40,11 +45,19 @@ export default function MainLayout() {
             <Route exact path="/jobAdvertisementDetailForPersonnel/:jobAdvertisementId" component={JobAdvertisementDetailsForPersonnel} />
             <Route exact path="/approvedJobAdvertisement" component={ApprovedJobAdvertisementList} />
             <Route exact path="/unApprovedJobAdvertisement" component={UnApprovedJobAdvertisementList} />
+            <Route exact path="/favoriteJobAdvertisement/:userId" component={FavoriteJobAdvertisementForJobSeeker} />
+
+            <Route exact path="/jobAdvertisementList" component={AllJobAdvertisementList} />
+            <Route exact path="/jobAdvertisementDetailForAll/:jobAdvertisementId" component={JobAdvertisementDetailsForAll} />
+
+            <Route exact path="/:userId/jobAdvertisementList" component={JobAdvertisementListForJobSeeker} />
+            <Route exact path="/:userId/jobAdvertisement" component={JobAdvertisementList} />
 
             <Route exact path="/profile/:userId" component={BaseProfilePage} />
-            
+
             <Route exact path="/employerDetails/:userId" component={EmployerProfile} />
             <Route exact path="/employerRegister" component={EmployerRegister} />
+            
             <Route exact path="/approvedEmployerList" component={ApprovedEmployerList} />
             <Route exact path="/unApprovedEmployerList" component={UnApprovedEmployerList} />
             <Route exact path="/updatedEmployerList" component={UpdatedEmployerList} />
@@ -55,12 +68,15 @@ export default function MainLayout() {
             <Route exact path="/jobSeekerDetails/:userId" component={JobSeekerDetail} />
 
             <Route exact path="/technologyAdd" component={TechnologyAdd} />
-            
+
             <Route exact path="/cvs/:userId/cvUpdate/:cvId" component={CvAdd} />
             <Route exact path="/cvs/:userId/cv/:cvId" component={CvList} />
             <Route exact path="/cvs/:userId" component={Cvs} />
 
             <Route exact path="/login" component={Login} />
+            <Route exact path="/" component={MainPage} />
+
+            {/* <MainPage /> */}
         </div>
     )
 }

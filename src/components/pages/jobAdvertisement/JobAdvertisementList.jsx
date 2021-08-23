@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom';
-import { Image, Segment, Button, Grid, Rating, Dropdown } from 'semantic-ui-react'
+import { Image, Segment, Button, Grid, Rating, Pagination } from 'semantic-ui-react'
 import CityService from '../../services/CityService';
 import WorkTimeTypeService from '../../services/WorkTimeTypeService';
 import { MultiSelect } from "primereact/multiselect";
@@ -9,6 +9,7 @@ import JobAdvertisementService from '../../services/JobAdvertisementService';
 import '../../../css/JobAdvertisementList.css'
 import FavoriteService from '../../services/FavoriteService';
 import { RadioButton } from "primereact/radiobutton";
+import { toast } from 'react-toastify';
 
 
 export default function JobAdvertisementList() {
@@ -32,7 +33,7 @@ export default function JobAdvertisementList() {
     useEffect(() => {
         jobAdvertisementService.getByAdvertisementStatusAndApprovalStatus().then((result) => setJobAdvertisements(result.data.data))
         jobAdvertisementService.getByAdvertisementStatusAndApprovalStatus().then((result) => setJobAdvertisementsDefault(result.data.data))
-        favoriteService.getAll().then(result => setFavorites(result.data.data))
+        favoriteService.getAllFavoritesByUserId(userId).then(result => setFavorites(result.data.data))
         let cityService = new CityService();
         cityService.getCities().then((result) => setCities(result.data.data));
         let workTimeTypeService = new WorkTimeTypeService()
@@ -66,10 +67,12 @@ export default function JobAdvertisementList() {
             jobAdvertisement: { jobAdvertisementId: jobAdvertisementId },
             jobSeeker: { userId: userId }
         }
-        favoriteService.add(favorite).then(result => console.log(result.data.message))
+        favoriteService.add(favorite).then(result => result.data.success ? toast.success("Favorilere Eklendi")
+            : toast.error("Favorilere Eklenemedi!"))
     }
     function deleteFavorite(jobAdvertisementId) {
-        favoriteService.deleteByJobAdvertisementId(jobAdvertisementId).then(result => console.log(result.data.message))
+        favoriteService.deleteByJobAdvertisementId(jobAdvertisementId).then(result => result.data.success ? toast.success("Favorilerden Silindi")
+            : toast.error("Favorilerden Silinemedi!"))
     }
     const [selectedCities, setselectedCities] = useState([]);
     const [selectedWorkTimeTypes, setSelectedWorkTimeTypes] = useState([]);
@@ -84,7 +87,6 @@ export default function JobAdvertisementList() {
 
         else {
             return withFilterData
-
         }
     }
     //pagination işleminden etkilenmemesi için jobAdvertisementsDefault olarak tanımlanan bütün iş ilanları filtreleniyor
@@ -112,14 +114,7 @@ export default function JobAdvertisementList() {
     else if (selectedCities.length === 0 && selectedWorkTimeTypes.length === 0) {//şehir + çalışma zamanı yoksa
         filteredJobAdvertisement = jobAdvertisements
     }
-
-
     let newJobAdvertisementData = _.intersection(handleData(), handleWorkTimeTypeData())
-    //console.log(withFilterData)
-    //console.log(selectedCities)
-    //console.log(filteredJobAdvertisement)
-    //console.log(_.intersection(withFilterData, withWorkTimeTypeFilterData))
-    //console.log(_.intersection(handleData(), handleWorkTimeTypeData()))
     return (
         <div>
             <div>
@@ -163,7 +158,8 @@ export default function JobAdvertisementList() {
                                                     name="category"
                                                     value={category}
                                                     onChange={((e) => (setSelectedCategory(e.value),
-                                                        (jobAdvertisementService.getAllByPageSize(activePage, e.value.key).then((result) => setJobAdvertisements(result.data.data)))
+                                                        (jobAdvertisementService.getAllByPageSize(activePage, e.value.key).then((result) =>
+                                                            setJobAdvertisements(result.data.data)))
                                                     ))}
                                                     checked={selectedCategory.key === category.key}
                                                 />
@@ -213,6 +209,8 @@ export default function JobAdvertisementList() {
                 </div>
             ))
             }
+            <Pagination inverted defaultActivePage={1} totalPages={10}
+                onPageChange={(event, data) => setActivePage(data.activePage)} />
         </div >
     )
 }

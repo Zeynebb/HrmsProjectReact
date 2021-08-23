@@ -1,0 +1,21 @@
+.segmentLeft{
+    background-image:"url(" + "https://res.cloudinary.com/zeydatabase/image/upload/v1626437675/work2_vla8cf.jpg" + ")";    
+    /* width: 350px;
+    height: 200px; */
+    width: initial;
+    height: 200px;
+}
+
+#mainBackground{
+    background-image: url("https://res.cloudinary.com/zeydatabase/image/upload/v1626462960/work11Blur_pfcnid.jpg");
+
+    height: 100%; 
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+.gridMain{
+    height: 100%;
+}

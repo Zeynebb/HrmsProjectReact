@@ -15,6 +15,8 @@ import CvWorkExperienceStateReducer from "./reducers/CvWorkExperienceStateReduce
 import CvTechnologyStateReducer from "./reducers/CvTechnologyStateReducer";
 import CvForeignLanguageStateReducer from "./reducers/CvForeignLanguageStateReducer";
 import CvSocialMediaStateReducer from "./reducers/CvSocialMediaStateReducer";
+import JobSeekerReducer from "./reducers/JobSeekerReducer";
+import TimerStateReducer from "./reducers/TimerStateReducer";
 
 const rootReducer = combineReducers({
     cv: CvReducer,
@@ -26,13 +28,16 @@ const rootReducer = combineReducers({
     systemPersonnel: SystemPersonnelReducer,
     employer: EmployerReducer,
     user: UserReducer,
-    
+    jobSeeker: JobSeekerReducer,
+
     educationInformationState: CvEducationInformationStateReducer,
     workExperienceState: CvWorkExperienceStateReducer,
     cvTechnologyState: CvTechnologyStateReducer,
     cvForeignLanguageState: CvForeignLanguageStateReducer,
     cvSocialMediaState: CvSocialMediaStateReducer,
+    timerState: TimerStateReducer,
 
-}) 
+
+})
 
 export default rootReducer;

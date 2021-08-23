@@ -14,4 +14,18 @@ export default class JobSeekerService{
         return axios.post("/api/jobSeekers/register?passwordAgain="+passwordAgain+"&validationCode="+validationCode, jobSeeker)
     }
 
+    emailVerification(jobSeeker, passwordAgain, validationCode){
+        return axios.post("/api/jobSeekers/emailVerification?passwordAgain="+passwordAgain+"&validationCode="+validationCode, jobSeeker)
+    }
+    emailSending(email){
+        return axios.post("/api/jobSeekers/emailSending?email="+email)
+    }
+
+    emailIsItUsed(email){
+        return axios.get("/api/jobSeekers/emailIsItUsed?email="+email)
+    }
+    nationalityIdIsItUsed(nationalityId){
+        return axios.get("/api/jobSeekers/nationalityIdIsItUsed?nationalityId="+nationalityId)
+    }
+
 }

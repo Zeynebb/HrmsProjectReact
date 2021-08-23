@@ -5,6 +5,7 @@ import JobAdvertisementService from '../../services/JobAdvertisementService'
 import '../../../css/JobAdvertisement.css'
 import { toast } from 'react-toastify'
 import moment from 'moment'
+import _, { delay } from 'lodash'
 
 export default function JobAdvertisementDetailForEmployer() {
 
@@ -17,6 +18,9 @@ export default function JobAdvertisementDetailForEmployer() {
     useEffect(() => {
         jobAdvertisementService.getJobAdvertisementByJobAdvertisementId(jobAdvertisementId).then(result => setJobAdvertisement(result.data.data))
     }, [])
+    function refreshPage() {
+        window.location.reload();
+    }
 
     function setStatus(userId, jobAdvertisementId, status) {
         jobAdvertisementService.closeTheJobAdvertisement(userId, jobAdvertisementId, status).then(result => console.log(result.data.message))
@@ -26,6 +30,7 @@ export default function JobAdvertisementDetailForEmployer() {
         {
             status == false && toast.success(`İş İlanı Pasif Hale Getirildi.`)
         }
+        _.delay(refreshPage(), 5000)//sayfayı yenilemek için 
 
     }
     return (
@@ -147,12 +152,14 @@ export default function JobAdvertisementDetailForEmployer() {
                         <td>
                             {
                                 jobAdvertisement.advertisementStatus == true &&
-                                <Button onClick={() => setStatus(userId, jobAdvertisementId, false)} style={{ backgroundColor: "#505050", color: "white", marginBottom: "0.001em" }}>
+                                <Button onClick={() => setStatus(userId, jobAdvertisementId, false)}
+                                    style={{ backgroundColor: "#505050", color: "white", marginBottom: "0.001em" }}>
                                     İlanı Pasif Hale Getir</Button>
                             }
                             {
                                 jobAdvertisement.advertisementStatus == false &&
-                                <Button onClick={() => setStatus(userId, jobAdvertisementId, true)} style={{ backgroundColor: "#780000", color: "white", marginBottom: "0.001em" }}>
+                                <Button onClick={() => setStatus(userId, jobAdvertisementId, true)}
+                                    style={{ backgroundColor: "#780000", color: "white", marginBottom: "0.001em" }}>
                                     İlanı Aktif Hale Getir</Button>
                             }
                         </td>

@@ -1,4 +1,3 @@
-import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
@@ -39,10 +38,6 @@ export default function CvWorkExperienceAdd() {
     const handleWorExperienceState = (state) => {
         dispatch(getCvWorkExperienceState(state));
     }
-    const formatDate = (date) => {
-        return moment((date)).format('YYYY-MM-DD')
-    }
-
     const formik = useFormik({
         initialValues: {
             cvId: cvId,
@@ -122,7 +117,7 @@ export default function CvWorkExperienceAdd() {
                                             <p>Başlangıç Tarihi:</p>
                                         </Grid.Column>
                                         <Grid.Column width={11} style={{ textAlign: "left" }}>
-                                            <Input id="startingDate" value={formik.values.startingDate} onChange={formik.handleChange} fluid></Input>
+                                            <Input id="startingDate" type="date" value={formik.values.startingDate} onChange={formik.handleChange} fluid></Input>
                                             {formik.errors.startingDate && formik.touched.startingDate && (
                                                 <p style={{ color: "red" }}>{formik.errors.startingDate}</p>
                                             )}</Grid.Column>
@@ -133,7 +128,7 @@ export default function CvWorkExperienceAdd() {
 
                                         </Grid.Column>
                                         <Grid.Column width={11} style={{ textAlign: "left" }}>
-                                            <Input id="endingdate" value={formik.values.endingdate} onChange={formik.handleChange} fluid></Input>
+                                            <Input id="endingdate" type="date" value={formik.values.endingdate} onChange={formik.handleChange} fluid></Input>
                                             {formik.errors.endingdate && formik.touched.endingdate && (
                                                 <p style={{ color: "red" }}>{formik.errors.endingdate}</p>
                                             )}

@@ -7,6 +7,7 @@
 .divStyle{
     margin-top: 1em;
     margin-bottom: 1em;
+    font-family: Arial;
 }
 
 .headerStyle{
@@ -20,3 +21,58 @@ label {
     font-weight: bold;
 }
 
+#cityId{
+    font-family: Arial;
+    margin-top: 1em; 
+    font-weight: lighter;
+}
+#positionId{
+    font-family: Arial;
+    margin-top: 1em; 
+    font-weight: lighter;
+}
+#workTypeId{
+    font-family: Arial;
+    margin-top: 1em; 
+    font-weight: lighter;
+}
+#workTimeTypeId{
+    font-family: Arial;
+    margin-top: 1em; 
+    font-weight: lighter;
+}
+#minSalary{
+    font-family: Arial;
+    margin-top: 1em; 
+    font-weight: lighter;
+}
+
+#maxSalary{
+    font-family: Arial;
+    margin-top: 1em; 
+    font-weight: lighter;
+}
+#positionAmount{
+    font-family: Arial;
+    margin-top: 1em; 
+    font-weight: lighter;
+}
+#applicationDeadline{
+    font-family: Arial;
+    margin-top: 1em; 
+    font-weight: lighter;
+}
+#jobDescription{
+    font-family: Arial;
+    margin-top: 1em; 
+    font-weight: lighter;
+    min-height: 100;
+}
+#error{
+    color: red;
+}
+#addButton{
+    background-color:#780000;
+    color: white;
+    margin-bottom: 0.001em;
+}

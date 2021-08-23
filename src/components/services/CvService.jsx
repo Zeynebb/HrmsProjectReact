@@ -9,6 +9,14 @@ export default class CvService {
         return axios.post("/api/cv/addCv", cv)
     }
 
+    deleteCv(cvId){
+        return axios.post("/api/cv/delete?cvId="+cvId)
+    }
+
+    deleteObjective(cvId){
+        return axios.post("/api/cv/deleteObjective?cvId="+cvId)
+    }
+
     getCvsByCvId(cvId) {
         return axios.get("/api/cv/getCvWithJobSeekerDetails?cvId=" + cvId)
     }

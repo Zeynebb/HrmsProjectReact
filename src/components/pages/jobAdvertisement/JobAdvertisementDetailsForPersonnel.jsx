@@ -134,10 +134,10 @@ export default function JobAdvertisementDetailsForPersonnel() {
                         </td>
                         <td className="rightTd" >
                             {
-                                jobAdvertisement.advertisementStatus == true && <p>Aktif</p>
+                                jobAdvertisement.advertisementStatus === true && <p>Aktif</p>
                             }
                             {
-                                jobAdvertisement.advertisementStatus == false && <p>Pasif</p>
+                                jobAdvertisement.advertisementStatus === false && <p>Pasif</p>
                             }
                         </td>
 
@@ -148,10 +148,10 @@ export default function JobAdvertisementDetailsForPersonnel() {
                         </td>
                         <td className="rightTd" >
                             {
-                                jobAdvertisement.approvalStatus == true && <p>Aktif</p>
+                                jobAdvertisement.approvalStatus === true && <p>Aktif</p>
                             }
                             {
-                                jobAdvertisement.approvalStatus == false && <p>Pasif</p>
+                                jobAdvertisement.approvalStatus === false && <p>Pasif</p>
                             }
                         </td>
 
@@ -161,11 +161,11 @@ export default function JobAdvertisementDetailsForPersonnel() {
                         </td>
                         <td>
                             {
-                                jobAdvertisement.approvalStatus == false &&
+                                jobAdvertisement.approvalStatus === false &&
                                 <Button onClick={() => changeStatus(jobAdvertisementId, true)} style={{ backgroundColor: "#780000", color: "white", marginBottom: "0.001em" }}>İlanı Onayla</Button>
                             }
                             {
-                                jobAdvertisement.approvalStatus == true &&
+                                jobAdvertisement.approvalStatus === true &&
                                 <Button onClick={() => changeStatus(jobAdvertisementId, false)} style={{ backgroundColor: "#505050", color: "white", marginBottom: "0.001em" }}>İlanı Reddet</Button>
                             }
                         </td>

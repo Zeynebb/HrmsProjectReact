@@ -1,0 +1,11 @@
+.ui.segmentLogin{
+    text-align: left;
+}
+
+.segmentLogin .headerLogin{
+    background-color: black;
+    color:white;
+    font-family: Arial;
+    font-size: 18px;
+    text-align: center;
+}

@@ -70,19 +70,19 @@ export default function CvSocialMediaUpdate() {
                 <Segment>
                     <Grid style={{ fontSize: "15px", fontFamily: "Arial" }}>
                         <Grid.Column width={1} style={{ marginLeft: "4%", marginTop: "4%" }}>
-                            {cvSocialMedia.socialMediaId == 1 &&
+                            {cvSocialMedia.socialMediaId === 1 &&
                                 <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623787549/GithubIcon_y0llz4.png' size='mini' />
                             }
-                            {cvSocialMedia.socialMediaId == 2 &&
+                            {cvSocialMedia.socialMediaId === 2 &&
                                 <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623787722/LinkedinIcon_uvdeca.png' size='mini' />
                             }
-                            {cvSocialMedia.socialMediaId == 3 &&
+                            {cvSocialMedia.socialMediaId === 3 &&
                                 <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623787549/instagramIcon_yuaose.png' size='mini' />
                             }
-                            {cvSocialMedia.socialMediaId == 4 &&
+                            {cvSocialMedia.socialMediaId === 4 &&
                                 <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623787722/FacebookIcon_dijgdv.png' size='mini' />
                             }
-                            {cvSocialMedia.socialMediaId == 5 &&
+                            {cvSocialMedia.socialMediaId === 5 &&
                                 <Image src='https://res.cloudinary.com/zeydatabase/image/upload/v1623787721/twitterIcon_cyqmri.png' size='mini' />
                             }
                         </Grid.Column>

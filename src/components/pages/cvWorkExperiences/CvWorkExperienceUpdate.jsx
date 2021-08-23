@@ -150,10 +150,10 @@ export default function CvWorkExperienceUpdate() {
                                                 onChange={(e, { value }) => setDateState({ value })}
                                                 style={{ marginBottom: "1%", marginLeft: "4%" }}
                                             />
-                                            {dateState.value == '2' &&
+                                            {dateState.value === '2' &&
                                                 <Input id="endingdate" type="date" value={formatDate(formik.values.endingdate)} onChange={formik.handleChange} fluid></Input>
                                             }
-                                            {dateState.value == '1' &&
+                                            {dateState.value === '1' &&
                                                 <Input id="endingdate" value="Devam Ediyor" fluid disabled></Input>
                                             }
                                             {formik.errors.endingdate && formik.touched.endingdate && (

@@ -17,5 +17,8 @@ export default class FavoriteService  {
     existsJobAdvertisement(jobAdvertisementId, jobSeekerId){
         return axios.get("/api/favorite/existsByJobAdvertisement?jobAdvertisementId="+jobAdvertisementId+"&jobSeekerId="+jobSeekerId)
     }
+    getAllFavoritesByUserId(userId){
+        return axios.get("/api/favorite/getFavoritesByJobSeekerId?userId="+userId)
+    }
 
 }
